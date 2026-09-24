@@ -23,344 +23,291 @@ html{
 }
 
 body{
-    min-height:100vh;
     background:
-        radial-gradient(circle at 15% 20%,rgba(255,174,0,.12),transparent 28%),
-        radial-gradient(circle at 85% 25%,rgba(255,70,0,.10),transparent 30%),
-        linear-gradient(135deg,#080706,#120d07 45%,#090807);
+        radial-gradient(circle at 15% 20%,rgba(255,170,0,.12),transparent 30%),
+        radial-gradient(circle at 85% 80%,rgba(255,80,0,.10),transparent 30%),
+        #090909;
     color:#fff;
+    min-height:100vh;
     overflow-x:hidden;
 }
 
-/* BACKGROUND */
-.bg{
+body::before{
+    content:"";
     position:fixed;
     inset:0;
-    pointer-events:none;
-    overflow:hidden;
-    z-index:-1;
-}
-
-.grid{
-    position:absolute;
-    inset:-50%;
     background-image:
-        linear-gradient(rgba(255,180,0,.045) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,180,0,.045) 1px,transparent 1px);
-    background-size:55px 55px;
-    transform:perspective(500px) rotateX(55deg);
-    animation:gridMove 12s linear infinite;
+        linear-gradient(rgba(255,145,0,.045) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,145,0,.045) 1px,transparent 1px);
+    background-size:45px 45px;
+    pointer-events:none;
+    z-index:-3;
+    animation:gridMove 15s linear infinite;
 }
 
 @keyframes gridMove{
-    from{transform:perspective(500px) rotateX(55deg) translateY(0);}
-    to{transform:perspective(500px) rotateX(55deg) translateY(55px);}
+    from{transform:translate(0,0)}
+    to{transform:translate(45px,45px)}
 }
 
 .orb{
-    position:absolute;
-    width:300px;
-    height:300px;
+    position:fixed;
+    width:350px;
+    height:350px;
     border-radius:50%;
-    filter:blur(90px);
+    filter:blur(100px);
     opacity:.18;
-    animation:orb 8s ease-in-out infinite alternate;
+    pointer-events:none;
+    z-index:-2;
 }
 
 .orb.one{
-    background:#ff9d00;
-    top:5%;
+    background:#ff9800;
+    top:-120px;
     right:-100px;
+    animation:orb1 8s ease-in-out infinite alternate;
 }
 
 .orb.two{
-    background:#ff3c00;
-    bottom:10%;
+    background:#ff3d00;
+    bottom:-150px;
     left:-120px;
-    animation-delay:2s;
+    animation:orb2 10s ease-in-out infinite alternate;
 }
 
-@keyframes orb{
-    from{transform:translate(0,0) scale(1);}
-    to{transform:translate(70px,40px) scale(1.25);}
+@keyframes orb1{
+    to{transform:translate(-100px,100px) scale(1.2)}
 }
 
-/* PARTICLES */
-.particle{
+@keyframes orb2{
+    to{transform:translate(100px,-100px) scale(1.15)}
+}
+
+#particles{
     position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.particle{
+    position:absolute;
     width:3px;
     height:3px;
+    background:#ffb300;
     border-radius:50%;
-    background:#ffc247;
-    box-shadow:0 0 12px #ffae00;
-    pointer-events:none;
-    opacity:.7;
-    animation:float linear infinite;
+    box-shadow:0 0 12px #ff9800;
+    animation:particleMove linear infinite;
 }
 
-@keyframes float{
+@keyframes particleMove{
     from{
-        transform:translateY(110vh) translateX(0);
+        transform:translateY(110vh);
         opacity:0;
     }
-    15%{opacity:.8;}
-    85%{opacity:.8;}
+    20%{opacity:1}
+    80%{opacity:1}
     to{
-        transform:translateY(-10vh) translateX(80px);
+        transform:translateY(-10vh);
         opacity:0;
     }
 }
 
-/* HEADER */
 header{
     position:fixed;
     top:0;
     right:0;
     left:0;
-    height:74px;
     z-index:1000;
-    background:rgba(8,7,6,.78);
+    background:rgba(8,8,8,.72);
     backdrop-filter:blur(18px);
-    border-bottom:1px solid rgba(255,174,0,.15);
+    border-bottom:1px solid rgba(255,170,0,.15);
 }
 
 .nav{
-    width:min(1150px,92%);
-    height:100%;
+    max-width:1200px;
     margin:auto;
+    padding:16px 20px;
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
+    gap:20px;
 }
 
 .logo{
     font-size:22px;
     font-weight:900;
     color:#ffb300;
-    text-shadow:0 0 20px rgba(255,174,0,.5);
+    text-shadow:0 0 20px rgba(255,179,0,.5);
 }
 
 nav{
     display:flex;
-    gap:25px;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
 }
 
 nav a{
     color:#ddd;
     text-decoration:none;
-    font-size:14px;
+    padding:9px 13px;
+    border-radius:12px;
     transition:.3s;
+    font-size:14px;
 }
 
 nav a:hover{
-    color:#ffb300;
+    color:#fff;
+    background:rgba(255,179,0,.12);
+    box-shadow:0 0 20px rgba(255,179,0,.08);
 }
 
-/* GENERAL */
-section{
-    width:min(1100px,92%);
+.container{
+    width:min(1150px,92%);
     margin:auto;
-    padding:100px 0;
 }
 
 .hero{
     min-height:100vh;
+    padding:150px 20px 80px;
     display:flex;
     align-items:center;
     justify-content:center;
     text-align:center;
-    padding-top:130px;
 }
 
 .hero-content{
-    animation:heroIn 1.2s ease both;
-}
-
-@keyframes heroIn{
-    from{
-        opacity:0;
-        transform:translateY(40px) scale(.95);
-    }
-    to{
-        opacity:1;
-        transform:none;
-    }
+    max-width:900px;
 }
 
 .badge{
     display:inline-block;
     padding:9px 18px;
     border:1px solid rgba(255,179,0,.4);
-    border-radius:100px;
-    color:#ffc44d;
-    background:rgba(255,174,0,.07);
-    box-shadow:0 0 25px rgba(255,174,0,.08);
-    margin-bottom:25px;
-    font-size:13px;
+    background:rgba(255,179,0,.08);
+    border-radius:999px;
+    color:#ffc107;
+    font-size:14px;
+    margin-bottom:22px;
+    box-shadow:0 0 30px rgba(255,179,0,.08);
 }
 
 .hero h1{
-    font-size:clamp(55px,12vw,120px);
-    font-weight:900;
+    font-size:clamp(55px,10vw,110px);
     line-height:1;
-    color:#fff;
-    text-shadow:
-        0 0 10px rgba(255,174,0,.5),
-        0 0 40px rgba(255,100,0,.25);
-    animation:titleGlow 3s infinite alternate;
+    font-weight:900;
+    background:linear-gradient(90deg,#fff,#ffc107,#ff6d00,#fff);
+    background-size:300%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:titleGradient 5s linear infinite;
+    filter:drop-shadow(0 0 25px rgba(255,145,0,.2));
 }
 
-@keyframes titleGlow{
-    from{text-shadow:0 0 10px rgba(255,174,0,.35);}
-    to{text-shadow:0 0 30px rgba(255,174,0,.8),0 0 70px rgba(255,70,0,.25);}
+@keyframes titleGradient{
+    0%{background-position:0%}
+    100%{background-position:300%}
 }
 
 .hero h2{
-    margin-top:15px;
+    margin-top:20px;
     font-size:clamp(20px,4vw,34px);
-    color:#ffb52a;
+    color:#eee;
 }
 
 .hero p{
-    max-width:650px;
-    margin:25px auto;
+    max-width:700px;
+    margin:22px auto 0;
     color:#aaa;
     line-height:2;
-}
-
-.buttons{
-    display:flex;
-    gap:15px;
-    justify-content:center;
-    flex-wrap:wrap;
-    margin-top:30px;
+    font-size:16px;
 }
 
 .btn{
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    min-width:180px;
-    padding:15px 25px;
-    border-radius:14px;
-    text-decoration:none;
-    font-weight:800;
-    transition:.35s;
-    cursor:pointer;
+    gap:8px;
+    margin-top:28px;
+    padding:14px 25px;
     border:none;
+    border-radius:15px;
+    background:linear-gradient(135deg,#ffb300,#ff6d00);
+    color:#111;
+    text-decoration:none;
+    font-weight:900;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 10px 35px rgba(255,136,0,.18);
 }
 
-.btn-main{
-    color:#17100a;
-    background:linear-gradient(135deg,#ffd15c,#ff9800);
-    box-shadow:0 10px 35px rgba(255,153,0,.25);
+.btn:hover{
+    transform:translateY(-4px) scale(1.02);
+    box-shadow:0 15px 45px rgba(255,136,0,.3);
 }
 
-.btn-main:hover{
-    transform:translateY(-5px) scale(1.03);
-    box-shadow:0 15px 45px rgba(255,153,0,.45);
+section{
+    padding:90px 0;
 }
 
-.btn-dark{
-    color:#fff;
-    border:1px solid rgba(255,179,0,.3);
-    background:rgba(255,255,255,.04);
-}
-
-.btn-dark:hover{
-    background:rgba(255,179,0,.08);
-    transform:translateY(-5px);
-}
-
-/* TITLES */
 .section-title{
     text-align:center;
-    margin-bottom:50px;
-}
-
-.section-title span{
-    color:#ffb300;
-    font-size:13px;
-    font-weight:800;
+    margin-bottom:40px;
 }
 
 .section-title h2{
-    font-size:clamp(30px,6vw,50px);
-    margin-top:10px;
+    font-size:36px;
+    font-weight:900;
 }
 
 .section-title p{
-    color:#999;
-    margin-top:12px;
-}
-
-/* PRIZE */
-.prize{
-    position:relative;
-    max-width:600px;
-    margin:auto;
-    padding:50px 30px;
-    text-align:center;
-    border:1px solid rgba(255,179,0,.3);
-    background:
-        linear-gradient(145deg,rgba(255,179,0,.08),rgba(255,255,255,.025));
-    border-radius:30px;
-    overflow:hidden;
-    box-shadow:0 20px 80px rgba(0,0,0,.35);
-}
-
-.prize:before{
-    content:"";
-    position:absolute;
-    width:250px;
-    height:250px;
-    border-radius:50%;
-    background:#ffae00;
-    filter:blur(100px);
-    opacity:.12;
-    top:-100px;
-    left:-80px;
-}
-
-.prize-icon{
-    width:130px;
-    height:130px;
-    margin:0 auto 25px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:65px;
-    background:radial-gradient(circle,#3a2604,#171006);
-    border:2px solid rgba(255,193,7,.6);
-    box-shadow:
-        0 0 25px rgba(255,174,0,.35),
-        inset 0 0 30px rgba(255,174,0,.12);
-    animation:prizeFloat 3s ease-in-out infinite;
-}
-
-@keyframes prizeFloat{
-    0%,100%{transform:translateY(0) rotate(0deg);}
-    50%{transform:translateY(-12px) rotate(3deg);}
-}
-
-.prize h3{
-    color:#ffc84d;
-    font-size:30px;
-}
-
-.prize h4{
-    margin-top:10px;
-    font-size:18px;
-    color:#ddd;
-}
-
-.prize p{
     color:#888;
     margin-top:10px;
 }
 
-/* CARDS */
+.countdown-box{
+    background:linear-gradient(145deg,rgba(255,179,0,.09),rgba(255,70,0,.04));
+    border:1px solid rgba(255,179,0,.18);
+    border-radius:28px;
+    padding:35px 20px;
+    text-align:center;
+    box-shadow:0 20px 70px rgba(0,0,0,.2);
+}
+
+.countdown-box h3{
+    color:#ffc107;
+    margin-bottom:25px;
+    font-size:22px;
+}
+
+.countdown{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    max-width:700px;
+    margin:auto;
+}
+
+.time{
+    padding:22px 10px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+}
+
+.time strong{
+    display:block;
+    font-size:38px;
+    color:#fff;
+}
+
+.time span{
+    color:#888;
+    font-size:13px;
+}
+
 .cards{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -368,95 +315,149 @@ section{
 }
 
 .card{
-    padding:30px 22px;
-    border-radius:22px;
-    background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,255,255,.07);
-    transition:.4s;
     position:relative;
+    padding:28px;
+    border-radius:24px;
+    background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.02));
+    border:1px solid rgba(255,179,0,.13);
     overflow:hidden;
+    transition:.4s;
 }
 
-.card:after{
+.card::before{
     content:"";
     position:absolute;
-    top:0;
-    right:-100%;
-    width:100%;
-    height:2px;
-    background:linear-gradient(90deg,transparent,#ffb300,transparent);
-    transition:.6s;
+    width:130px;
+    height:130px;
+    background:#ff9800;
+    filter:blur(80px);
+    opacity:.08;
+    top:-60px;
+    left:-60px;
 }
 
 .card:hover{
-    transform:translateY(-10px);
-    border-color:rgba(255,179,0,.3);
-    box-shadow:0 20px 50px rgba(0,0,0,.25);
-}
-
-.card:hover:after{
-    right:100%;
-}
-
-.card-icon{
-    font-size:35px;
-    margin-bottom:18px;
+    transform:translateY(-8px);
+    border-color:rgba(255,179,0,.4);
+    box-shadow:0 20px 50px rgba(255,136,0,.08);
 }
 
 .card h3{
+    font-size:21px;
     margin-bottom:12px;
-    color:#ffc44d;
+    color:#ffc107;
 }
 
 .card p{
-    color:#999;
-    line-height:1.9;
-    font-size:14px;
+    color:#aaa;
+    line-height:2;
 }
 
-/* SCORE */
-.score-box{
-    max-width:750px;
-    margin:auto;
+.prize{
+    text-align:center;
+    padding:45px 20px;
+    border-radius:30px;
+    background:
+        radial-gradient(circle at center,rgba(255,179,0,.13),transparent 55%),
+        rgba(255,255,255,.025);
+    border:1px solid rgba(255,179,0,.2);
+}
+
+.prize-icon{
+    font-size:90px;
+    filter:drop-shadow(0 0 25px rgba(255,179,0,.3));
+    animation:prizeFloat 3s ease-in-out infinite;
+}
+
+@keyframes prizeFloat{
+    50%{transform:translateY(-12px) rotate(3deg)}
+}
+
+.prize h3{
+    font-size:32px;
+    color:#ffc107;
+    margin-top:10px;
+}
+
+.prize p{
+    color:#aaa;
+    margin-top:10px;
+}
+
+.alliance{
     display:grid;
-    gap:12px;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
 }
 
-.score-row{
+.alliance-main,
+.alliance-info{
+    padding:30px;
+    border-radius:25px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,179,0,.15);
+}
+
+.alliance-main h3{
+    color:#ffc107;
+    font-size:28px;
+    margin-bottom:12px;
+}
+
+.alliance-main p{
+    color:#aaa;
+    line-height:2;
+}
+
+.info-row{
     display:flex;
     justify-content:space-between;
-    align-items:center;
-    padding:20px 25px;
-    border-radius:16px;
+    gap:15px;
+    padding:14px 0;
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.info-row:last-child{
+    border-bottom:0;
+}
+
+.info-row span:first-child{
+    color:#888;
+}
+
+.info-row span:last-child{
+    color:#fff;
+    font-weight:700;
+}
+
+.rules{
+    display:grid;
+    gap:15px;
+}
+
+.rule{
+    padding:20px 22px;
+    border-radius:18px;
     background:rgba(255,255,255,.035);
     border:1px solid rgba(255,255,255,.07);
-    transition:.3s;
+    color:#bbb;
+    line-height:2;
 }
 
-.score-row:hover{
-    transform:translateX(-6px);
-    border-color:rgba(255,179,0,.3);
+.rule strong{
+    color:#ffc107;
 }
 
-.score-row strong{
-    color:#fff;
-}
-
-.points{
-    color:#ffc247;
-    font-size:20px;
-    font-weight:900;
-}
-
-/* REGISTRATION */
-.form-wrap{
-    max-width:700px;
+.registration-wrapper{
+    max-width:650px;
     margin:auto;
-    padding:35px;
+}
+
+.form{
+    padding:30px;
+    border-radius:28px;
     background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,179,0,.2);
-    border-radius:25px;
-    box-shadow:0 20px 70px rgba(0,0,0,.25);
+    border:1px solid rgba(255,179,0,.16);
 }
 
 .field{
@@ -466,219 +467,296 @@ section{
 .field label{
     display:block;
     margin-bottom:8px;
-    color:#ccc;
+    color:#aaa;
     font-size:14px;
 }
 
 .field input{
     width:100%;
-    padding:15px 17px;
-    border-radius:13px;
+    padding:15px 16px;
+    border-radius:14px;
     border:1px solid rgba(255,255,255,.1);
-    background:rgba(0,0,0,.25);
+    background:#111;
     color:#fff;
     outline:none;
     transition:.3s;
-    font-size:15px;
 }
 
 .field input:focus{
     border-color:#ffb300;
-    box-shadow:0 0 20px rgba(255,179,0,.1);
+    box-shadow:0 0 20px rgba(255,179,0,.08);
 }
 
-.form-wrap .btn{
+.form .btn{
     width:100%;
-    margin-top:8px;
+    margin-top:5px;
 }
 
-/* SUCCESS */
-.success{
-    display:none;
-    text-align:center;
-    padding:30px 20px;
-    border-radius:20px;
-    border:1px solid rgba(54,211,153,.35);
-    background:rgba(54,211,153,.06);
-    animation:successIn .6s ease;
-}
-
-@keyframes successIn{
-    from{
-        opacity:0;
-        transform:scale(.9);
-    }
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
-}
-
-.success-icon{
-    font-size:50px;
-    margin-bottom:15px;
-}
-
-.success h3{
-    color:#55e6ad;
-    margin-bottom:12px;
-}
-
-.success p{
-    color:#ccc;
-    line-height:2;
-}
-
-.rubika{
-    display:inline-block;
-    margin-top:18px;
-    color:#ffc247;
-    font-size:18px;
-    font-weight:900;
-    text-decoration:none;
-}
-
-/* RULES */
-.rules{
-    max-width:800px;
+.profile-card{
+    max-width:850px;
     margin:auto;
     padding:30px;
-    border-radius:25px;
-    background:rgba(255,255,255,.035);
+    border-radius:28px;
+    background:linear-gradient(145deg,rgba(255,179,0,.07),rgba(255,255,255,.025));
     border:1px solid rgba(255,179,0,.18);
 }
 
-.rules p{
-    color:#bbb;
-    line-height:2.2;
-    margin-bottom:15px;
+.profile-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:25px;
 }
 
-.rules p:last-child{
-    margin-bottom:0;
+.profile-head h3{
+    color:#ffc107;
+    font-size:28px;
 }
 
-/* PRICE */
-.price-box{
+.profile-status{
+    padding:8px 13px;
+    border-radius:999px;
+    background:rgba(0,255,140,.08);
+    border:1px solid rgba(0,255,140,.2);
+    color:#66ffb0;
+    font-size:13px;
+}
+
+.profile-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.profile-item{
+    padding:18px;
+    border-radius:17px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.profile-item small{
+    display:block;
+    color:#777;
+    margin-bottom:6px;
+}
+
+.profile-item strong{
+    color:#fff;
+    word-break:break-word;
+}
+
+.shared-code{
+    margin-top:18px;
+    padding:20px;
     text-align:center;
-    padding:45px 25px;
-    border-radius:30px;
-    background:linear-gradient(145deg,rgba(255,174,0,.1),rgba(255,255,255,.025));
-    border:1px solid rgba(255,174,0,.25);
+    border-radius:18px;
+    background:rgba(255,179,0,.06);
+    border:1px dashed rgba(255,179,0,.3);
 }
 
-.price-label{
-    color:#999;
+.shared-code span{
+    display:block;
+    color:#888;
+    font-size:13px;
+    margin-bottom:7px;
 }
 
-.price{
-    font-size:clamp(38px,8vw,65px);
+.shared-code strong{
+    font-size:25px;
+    color:#ffc107;
+    letter-spacing:3px;
+}
+
+.profile-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.profile-actions .btn{
+    margin-top:0;
+}
+
+.empty-profile{
+    text-align:center;
+    padding:35px;
+    border-radius:24px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.07);
+}
+
+.empty-profile h3{
+    color:#ffc107;
+    margin-bottom:10px;
+}
+
+.empty-profile p{
+    color:#888;
+    line-height:2;
+}
+
+.today-message{
+    display:none;
+    margin:15px 0;
+    padding:18px;
+    border-radius:18px;
+    background:linear-gradient(135deg,rgba(255,179,0,.12),rgba(255,70,0,.08));
+    border:1px solid rgba(255,179,0,.3);
+    color:#ffc107;
+    text-align:center;
     font-weight:900;
-    color:#ffc247;
-    margin:10px 0;
-    text-shadow:0 0 30px rgba(255,174,0,.3);
+    font-size:19px;
+    animation:todayPulse 2s infinite;
 }
 
-.price-unit{
-    color:#aaa;
+@keyframes todayPulse{
+    50%{
+        box-shadow:0 0 30px rgba(255,179,0,.12);
+    }
 }
 
-/* FOOTER */
+/* MODAL */
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(12px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:5000;
+    opacity:0;
+    transition:.3s;
+}
+
+.modal-overlay.show{
+    display:flex;
+    opacity:1;
+}
+
+.modal{
+    width:min(450px,100%);
+    background:
+        radial-gradient(circle at top right,rgba(255,179,0,.12),transparent 45%),
+        #101010;
+    border:1px solid rgba(255,179,0,.25);
+    border-radius:25px;
+    padding:28px;
+    box-shadow:0 30px 100px rgba(0,0,0,.6);
+    transform:translateY(20px) scale(.96);
+    transition:.3s;
+}
+
+.modal-overlay.show .modal{
+    transform:translateY(0) scale(1);
+}
+
+.modal h3{
+    color:#ffc107;
+    font-size:25px;
+    margin-bottom:10px;
+}
+
+.modal p{
+    color:#888;
+    line-height:2;
+    margin-bottom:20px;
+}
+
+.modal-actions{
+    display:flex;
+    gap:10px;
+}
+
+.modal-actions .btn{
+    flex:1;
+    margin-top:0;
+}
+
+.cancel-btn{
+    background:rgba(255,255,255,.07);
+    color:#fff;
+    box-shadow:none;
+}
+
 footer{
     padding:45px 20px;
     text-align:center;
     border-top:1px solid rgba(255,255,255,.06);
-    background:rgba(0,0,0,.2);
+    color:#666;
 }
 
 footer strong{
-    color:#ffb300;
+    color:#aaa;
 }
 
-footer p{
-    color:#777;
-    margin-top:10px;
-    font-size:13px;
-}
-
-/* REVEAL */
 .reveal{
     opacity:0;
-    transform:translateY(40px);
+    transform:translateY(30px);
     transition:1s ease;
 }
 
-.reveal.show{
+.reveal.active{
     opacity:1;
-    transform:none;
+    transform:translateY(0);
 }
 
-/* RESPONSIVE */
 @media(max-width:800px){
+    .nav{
+        flex-direction:column;
+    }
+
+    header{
+        position:absolute;
+    }
+
+    .hero{
+        padding-top:190px;
+    }
+
     .cards{
         grid-template-columns:1fr;
     }
 
-    nav{
-        gap:12px;
+    .alliance{
+        grid-template-columns:1fr;
     }
 
-    nav a{
-        font-size:12px;
-    }
-
-    .logo{
-        font-size:17px;
-    }
-
-    section{
-        padding:80px 0;
-    }
-
-    .form-wrap{
-        padding:25px 18px;
+    .countdown{
+        grid-template-columns:repeat(2,1fr);
     }
 }
 
-@media(max-width:500px){
-    header{
-        height:65px;
-    }
-
-    .nav{
-        width:94%;
-    }
-
-    nav{
-        gap:8px;
-    }
-
-    nav a:nth-child(3){
-        display:none;
-    }
-
-    .hero{
-        padding-top:100px;
+@media(max-width:520px){
+    nav a{
+        font-size:12px;
+        padding:7px 9px;
     }
 
     .hero h1{
-        font-size:60px;
+        font-size:55px;
     }
 
-    .hero h2{
-        font-size:20px;
+    .profile-grid{
+        grid-template-columns:1fr;
     }
 
-    .buttons{
+    .profile-head{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .modal-actions{
         flex-direction:column;
     }
 
-    .btn{
-        width:100%;
-    }
-
-    .score-row{
-        padding:17px;
+    .time strong{
+        font-size:30px;
     }
 }
 </style>
@@ -686,11 +764,9 @@ footer p{
 
 <body>
 
-<div class="bg">
-    <div class="grid"></div>
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-</div>
+<div class="orb one"></div>
+<div class="orb two"></div>
+<div id="particles"></div>
 
 <header>
     <div class="nav">
@@ -698,9 +774,10 @@ footer p{
 
         <nav>
             <a href="#home">خانه</a>
-            <a href="#prize">جایزه</a>
+            <a href="#time">زمان</a>
+            <a href="#alliance">اتحاد</a>
             <a href="#rules">قوانین</a>
-            <a href="#register">ثبت‌نام</a>
+            <a href="#profile">پروفایل</a>
         </nav>
     </div>
 </header>
@@ -708,349 +785,1040 @@ footer p{
 <main>
 
 <section class="hero" id="home">
-    <div class="hero-content">
-        <div class="badge">🎮 چالش ویژه پسرخوانده</div>
+    <div class="hero-content reveal">
+
+        <div class="badge">چالش رسمی دوئل پسرخوانده</div>
 
         <h1>امیر خوانده</h1>
 
         <h2>چالش دوئل پسرخوانده</h2>
 
         <p>
-            وارد یک رقابت هیجان‌انگیز شو، در دوئل‌ها امتیاز جمع کن
-            و در پایان برای به‌دست آوردن جایزه ویژه رقابت کن.
+            وارد رقابت شو، در دوئل‌ها شرکت کن و برای به‌دست آوردن
+            لباس شرلوک رقابت کن.
         </p>
 
-        <div class="buttons">
-            <a class="btn btn-main" href="#register">🔥 ثبت‌نام در مسابقه</a>
-            <a class="btn btn-dark" href="#rules">📜 مشاهده قوانین</a>
-        </div>
+        <a href="#profile" class="btn">
+            مشاهده پروفایل
+        </a>
+
     </div>
 </section>
 
-<section id="prize" class="reveal">
+<section id="time">
+    <div class="container">
 
-    <div class="section-title">
-        <span>PRIZE</span>
-        <h2>جایزه مسابقه</h2>
-        <p>برنده نهایی صاحب جایزه ویژه می‌شود</p>
-    </div>
-
-    <div class="prize">
-
-        <div class="prize-icon">🕵️</div>
-
-        <h3>شرلوک</h3>
-
-        <h4>لباس شرلوک</h4>
-
-        <p>بدون کارت قهرمان</p>
-
-    </div>
-
-</section>
-
-<section class="reveal">
-
-    <div class="section-title">
-        <span>CHALLENGE</span>
-        <h2>رقابت چطور انجام می‌شود؟</h2>
-    </div>
-
-    <div class="cards">
-
-        <div class="card">
-            <div class="card-icon">⚔️</div>
-            <h3>دوئل</h3>
-            <p>
-                بازیکنان در دوئل پسرخوانده با یکدیگر رقابت می‌کنند
-                و نتیجه هر مسابقه روی امتیاز نهایی تأثیر می‌گذارد.
-            </p>
+        <div class="section-title reveal">
+            <h2>زمان چالش</h2>
+            <p>زمان باقی‌مانده تا پایان چالش</p>
         </div>
 
-        <div class="card">
-            <div class="card-icon">🏆</div>
-            <h3>امتیازگیری</h3>
-            <p>
-                با بردن مسابقات امتیاز بیشتری دریافت می‌کنی
-                و برای رسیدن به جایگاه اول تلاش می‌کنی.
-            </p>
-        </div>
+        <div class="countdown-box reveal">
 
-        <div class="card">
-            <div class="card-icon">👑</div>
-            <h3>قهرمانی</h3>
-            <p>
-                در پایان، بازیکنی که بیشترین امتیاز را داشته باشد
-                برنده جایزه ویژه مسابقه خواهد شد.
-            </p>
-        </div>
+            <h3>
+                روز مسابقه ۶ روز دیگر و پایان چالش ۷ روز دیگر است.
+            </h3>
 
-    </div>
+            <div class="countdown">
 
-</section>
+                <div class="time">
+                    <strong id="days">0</strong>
+                    <span>روز</span>
+                </div>
 
-<section id="rules" class="reveal">
+                <div class="time">
+                    <strong id="hours">0</strong>
+                    <span>ساعت</span>
+                </div>
 
-    <div class="section-title">
-        <span>RULES</span>
-        <h2>سیستم امتیازات</h2>
-        <p>هر نتیجه امتیاز مخصوص خودش را دارد</p>
-    </div>
+                <div class="time">
+                    <strong id="minutes">0</strong>
+                    <span>دقیقه</span>
+                </div>
 
-    <div class="score-box">
+                <div class="time">
+                    <strong id="seconds">0</strong>
+                    <span>ثانیه</span>
+                </div>
 
-        <div class="score-row">
-            <strong>🏆 برد در دوئل</strong>
-            <span class="points">+۳ امتیاز</span>
-        </div>
-
-        <div class="score-row">
-            <strong>🤝 مساوی</strong>
-            <span class="points">+۱ امتیاز</span>
-        </div>
-
-        <div class="score-row">
-            <strong>❌ باخت</strong>
-            <span class="points">۰ امتیاز</span>
-        </div>
-
-    </div>
-
-</section>
-
-<section class="reveal">
-
-    <div class="section-title">
-        <span>RULES</span>
-        <h2>قوانین مسابقه</h2>
-    </div>
-
-    <div class="rules">
-
-        <p>
-            ⚠️ شرکت‌کننده باید اطلاعات صحیح خود را هنگام ثبت‌نام وارد کند.
-        </p>
-
-        <p>
-            🎮 مسابقات به صورت دوئل در بازی پسرخوانده برگزار می‌شود.
-        </p>
-
-        <p>
-            🏆 برنده نهایی بر اساس بیشترین امتیاز تعیین خواهد شد.
-        </p>
-
-        <p>
-            💳 هزینه ورود به مسابقه ۴۵٬۰۰۰ تومان است.
-        </p>
-
-        <p>
-            📩 پس از ثبت‌نام، برای هماهنگی و واریز وجه به پشتیبانی روبیکا مراجعه کنید.
-        </p>
-
-        <p>
-            🕵️ جایزه مسابقه لباس شرلوک، بدون کارت قهرمان است.
-        </p>
-
-    </div>
-
-</section>
-
-<section class="reveal">
-
-    <div class="section-title">
-        <span>ENTRY</span>
-        <h2>هزینه ورود</h2>
-    </div>
-
-    <div class="price-box">
-
-        <div class="price-label">ورودی مسابقه</div>
-
-        <div class="price">۴۵٬۰۰۰</div>
-
-        <div class="price-unit">تومان</div>
-
-    </div>
-
-</section>
-
-<section id="register" class="reveal">
-
-    <div class="section-title">
-        <span>REGISTER</span>
-        <h2>ثبت‌نام مسابقه</h2>
-        <p>اطلاعات خودت را وارد کن تا ثبت‌نام انجام شود</p>
-    </div>
-
-    <div class="form-wrap">
-
-        <form id="registerForm">
-
-            <div class="field">
-                <label>نام مخاطب</label>
-                <input
-                    type="text"
-                    id="name"
-                    placeholder="مثلاً امیر"
-                    required
-                >
             </div>
 
-            <div class="field">
-                <label>آیدی بازی پسرخوانده</label>
-                <input
-                    type="text"
-                    id="gameId"
-                    placeholder="آیدی داخل بازی"
-                    required
-                >
-            </div>
+        </div>
 
-            <div class="field">
-                <label>آیدی روبیکا</label>
-                <input
-                    type="text"
-                    id="rubikaId"
-                    placeholder="@username"
-                    required
-                >
-            </div>
+    </div>
+</section>
 
-            <button type="submit" class="btn btn-main">
-                🚀 ثبت‌نام
-            </button>
+<section>
+    <div class="container">
 
-        </form>
+        <div class="section-title reveal">
+            <h2>جایزه</h2>
+            <p>جایزه نفر اول چالش</p>
+        </div>
 
-        <div class="success" id="success">
+        <div class="prize reveal">
 
-            <div class="success-icon">✅</div>
+            <div class="prize-icon">🕵️</div>
 
-            <h3 id="successTitle"></h3>
+            <h3>لباس شرلوک</h3>
 
             <p>
-                شما با موفقیت ثبت نام شدی
+                جایزه نفر اول چالش
                 <br>
-                برای واریز وجه به روبیکا برو:
+                بدون کارت قهرمان
             </p>
-
-            <a
-                class="rubika"
-                href="https://rubika.ir/amirtbpedit"
-                target="_blank"
-            >
-                @amirtbpedit
-            </a>
 
         </div>
 
     </div>
+</section>
 
+<section>
+    <div class="container">
+
+        <div class="section-title reveal">
+            <h2>نحوه رقابت</h2>
+            <p>قوانین امتیازدهی چالش</p>
+        </div>
+
+        <div class="cards">
+
+            <div class="card reveal">
+                <h3>⚔️ دوئل</h3>
+                <p>
+                    مسابقه‌ها به صورت دوئل در بازی پسرخوانده برگزار می‌شوند.
+                </p>
+            </div>
+
+            <div class="card reveal">
+                <h3>🏆 امتیاز</h3>
+                <p>
+                    برد: ۳ امتیاز
+                    <br>
+                    مساوی: ۱ امتیاز
+                    <br>
+                    باخت: ۰ امتیاز
+                </p>
+            </div>
+
+            <div class="card reveal">
+                <h3>👑 قهرمانی</h3>
+                <p>
+                    در پایان چالش، بازیکنی که بیشترین امتیاز را داشته باشد،
+                    برنده لباس شرلوک خواهد شد.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section id="alliance">
+    <div class="container">
+
+        <div class="section-title reveal">
+            <h2>اتحاد</h2>
+            <p>قبل از روز مسابقه وارد اتحاد شوید</p>
+        </div>
+
+        <div class="alliance">
+
+            <div class="alliance-main reveal">
+                <h3>money</h3>
+
+                <p>
+                    برای شرکت در چالش باید قبل از روز مسابقه عضو اتحاد
+                    money باشید.
+                </p>
+            </div>
+
+            <div class="alliance-info reveal">
+
+                <div class="info-row">
+                    <span>نام اتحاد</span>
+                    <span>money</span>
+                </div>
+
+                <div class="info-row">
+                    <span>آیدی</span>
+                    <span>c212246901</span>
+                </div>
+
+                <div class="info-row">
+                    <span>موقعیت</span>
+                    <span>بین‌المللی</span>
+                </div>
+
+                <div class="info-row">
+                    <span>کاپ مورد نیاز</span>
+                    <span>۲۵۰۰</span>
+                </div>
+
+                <div class="info-row">
+                    <span>نوع</span>
+                    <span>باز</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section id="rules">
+    <div class="container">
+
+        <div class="section-title reveal">
+            <h2>قوانین</h2>
+            <p>قبل از شرکت قوانین را بخوانید</p>
+        </div>
+
+        <div class="rules">
+
+            <div class="rule reveal">
+                <strong>دوئل:</strong>
+                مسابقه‌ها به صورت دوئل برگزار می‌شوند.
+            </div>
+
+            <div class="rule reveal">
+                <strong>توجه:</strong>
+                اگر با کسی که نباید وارد دوئل شوید، کیک می‌شوید.
+            </div>
+
+            <div class="rule reveal">
+                <strong>اتحاد:</strong>
+                عضویت در اتحاد money قبل از مسابقه الزامی است.
+            </div>
+
+            <div class="rule reveal">
+                <strong>امتیازدهی:</strong>
+                برد ۳ امتیاز، مساوی ۱ امتیاز و باخت ۰ امتیاز دارد.
+            </div>
+
+            <div class="rule reveal">
+                <strong>ورودی:</strong>
+                مبلغ ورود به چالش ۴۵٬۰۰۰ تومان است.
+            </div>
+
+            <div class="rule reveal">
+                <strong>کد:</strong>
+                کد مخصوص شرکت در چالش را به
+                <b style="color:#ffc107;">@amirtbpedit</b>
+                ارسال کنید.
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!--
+====================================================
+بخش ثبت نام
+وقتی پروفایل ساخته شد این بخش به صورت کامل مخفی می‌شود.
+====================================================
+-->
+
+<section id="registrationSection">
+    <div class="container">
+
+        <div class="section-title reveal">
+            <h2>ثبت‌نام</h2>
+            <p>اطلاعات خود را برای ساخت پروفایل وارد کنید</p>
+        </div>
+
+        <div class="registration-wrapper">
+
+            <form class="form reveal" id="registerForm">
+
+                <div class="field">
+                    <label for="name">نام</label>
+                    <input
+                        type="text"
+                        id="name"
+                        required
+                        placeholder="نام خود را وارد کنید"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="gameId">آیدی بازی</label>
+                    <input
+                        type="text"
+                        id="gameId"
+                        required
+                        placeholder="آیدی بازی پسرخوانده"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="rubikaId">آیدی روبیکا</label>
+                    <input
+                        type="text"
+                        id="rubikaId"
+                        required
+                        placeholder="آیدی روبیکا"
+                    >
+                </div>
+
+                <button class="btn" type="submit">
+                    ساخت پروفایل
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+</section>
+
+<section id="profile">
+    <div class="container">
+
+        <div class="section-title reveal">
+            <h2>پروفایل من</h2>
+            <p id="profileSubtitle">
+                اطلاعات این پروفایل فقط روی همین دستگاه ذخیره می‌شود.
+            </p>
+        </div>
+
+        <div id="profileContainer"></div>
+
+    </div>
 </section>
 
 </main>
 
 <footer>
-    <strong>امیر خوانده</strong>
-    <p>چالش دوئل پسرخوانده | طراحی و ساخته شده توسط امیر حسین جبارفر</p>
+    چالش دوئل پسرخوانده
+    <br>
+    طراحی و ساخته شده توسط:
+    <strong>امیر حسین جبارفر</strong>
 </footer>
+
+<!-- MODAL تغییر اسم -->
+
+<div class="modal-overlay" id="nameModal">
+
+    <div class="modal">
+
+        <h3>تغییر نام</h3>
+
+        <p>
+            فقط اسم پروفایل قابل تغییر است.
+            آیدی بازی و آیدی روبیکا بعد از ثبت‌نام قابل تغییر نیستند.
+        </p>
+
+        <div class="field">
+            <label for="newName">اسم جدید</label>
+
+            <input
+                type="text"
+                id="newName"
+                placeholder="اسم جدید را وارد کنید"
+            >
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                class="btn cancel-btn"
+                type="button"
+                id="closeModal"
+            >
+                انصراف
+            </button>
+
+            <button
+                class="btn"
+                type="button"
+                id="saveName"
+            >
+                ذخیره اسم
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
 <script>
 
-/* PARTICLES */
-for(let i=0;i<45;i++){
+/* =========================
+   PARTICLES
+========================= */
 
-    const p=document.createElement("div");
+const particles = document.getElementById("particles");
 
-    p.className="particle";
+for(let i = 0; i < 45; i++){
 
-    p.style.left=Math.random()*100+"%";
+    const p = document.createElement("div");
 
-    p.style.animationDuration=(5+Math.random()*8)+"s";
+    p.className = "particle";
 
-    p.style.animationDelay=(-Math.random()*10)+"s";
+    p.style.left = Math.random() * 100 + "%";
 
-    p.style.width=(1+Math.random()*3)+"px";
+    p.style.animationDuration =
+        (5 + Math.random() * 10) + "s";
 
-    p.style.height=p.style.width;
+    p.style.animationDelay =
+        (Math.random() * 10) + "s";
 
-    document.body.appendChild(p);
+    p.style.opacity =
+        .3 + Math.random() * .7;
+
+    particles.appendChild(p);
 }
 
 
-/* REVEAL */
-const reveals=document.querySelectorAll(".reveal");
+/* =========================
+   REVEAL
+========================= */
 
-const revealObserver=new IntersectionObserver((entries)=>{
+const observer = new IntersectionObserver(
+    entries => {
 
-    entries.forEach(entry=>{
+        entries.forEach(entry => {
 
-        if(entry.isIntersecting){
+            if(entry.isIntersecting){
+                entry.target.classList.add("active");
+            }
 
-            entry.target.classList.add("show");
+        });
+
+    },
+    {
+        threshold:.12
+    }
+);
+
+document.querySelectorAll(".reveal").forEach(el => {
+    observer.observe(el);
+});
+
+
+/* =========================
+   STORAGE
+========================= */
+
+const STORAGE_KEY = "amirKhandeProfile";
+
+const SHARED_CODE = "PESARMIR";
+
+
+/* =========================
+   TIME
+========================= */
+
+let START_TIME =
+    Number(localStorage.getItem("amirKhandeStartTime"));
+
+if(!START_TIME){
+
+    START_TIME = Date.now();
+
+    localStorage.setItem(
+        "amirKhandeStartTime",
+        START_TIME
+    );
+}
+
+const MATCH_TIME =
+    START_TIME + (6 * 24 * 60 * 60 * 1000);
+
+const END_TIME =
+    START_TIME + (7 * 24 * 60 * 60 * 1000);
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =========================
+   DEFAULT PROFILE
+========================= */
+
+function createDefaultProfile(
+    name,
+    gameId,
+    rubikaId
+){
+
+    return {
+
+        name:name,
+
+        gameId:gameId,
+
+        rubikaId:rubikaId,
+
+        code:SHARED_CODE,
+
+        registeredAt:new Date().toLocaleString(
+            "fa-IR"
+        )
+
+    };
+
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function renderProfile(){
+
+    const container =
+        document.getElementById(
+            "profileContainer"
+        );
+
+    const registrationSection =
+        document.getElementById(
+            "registrationSection"
+        );
+
+    const profile =
+        JSON.parse(
+            localStorage.getItem(
+                STORAGE_KEY
+            )
+        );
+
+    /*
+    اگر پروفایل ساخته نشده باشد:
+    ثبت نام نمایش داده می‌شود.
+    */
+
+    if(!profile){
+
+        registrationSection.style.display =
+            "block";
+
+        container.innerHTML = `
+
+            <div class="empty-profile reveal active">
+
+                <h3>هنوز پروفایلی ساخته نشده</h3>
+
+                <p>
+                    ابتدا از بخش ثبت‌نام، پروفایل خودت را بساز.
+                </p>
+
+                <a
+                    href="#registrationSection"
+                    class="btn"
+                >
+                    رفتن به ثبت‌نام
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    /*
+    اگر پروفایل ساخته شده باشد:
+    کل بخش ثبت نام مخفی می‌شود.
+    */
+
+    registrationSection.style.display =
+        "none";
+
+
+    const now = Date.now();
+
+    const todayMessage =
+        now >= MATCH_TIME &&
+        now < END_TIME
+            ? "امروز روزشه : pesarmir"
+            : "";
+
+
+    container.innerHTML = `
+
+        <div class="profile-card reveal active">
+
+            <div class="profile-head">
+
+                <h3>
+                    پروفایل ${escapeHTML(profile.name)}
+                </h3>
+
+                <div class="profile-status">
+                    پروفایل فعال
+                </div>
+
+            </div>
+
+            <div
+                class="today-message"
+                style="
+                    display:${todayMessage ? "block" : "none"};
+                "
+            >
+                ${todayMessage}
+            </div>
+
+            <div class="profile-grid">
+
+                <div class="profile-item">
+
+                    <small>نام</small>
+
+                    <strong>
+                        ${escapeHTML(profile.name)}
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <small>آیدی بازی</small>
+
+                    <strong>
+                        ${escapeHTML(profile.gameId)}
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <small>آیدی روبیکا</small>
+
+                    <strong>
+                        ${escapeHTML(profile.rubikaId)}
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <small>جایزه</small>
+
+                    <strong>
+                        لباس شرلوک
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <small>ورودی</small>
+
+                    <strong>
+                        ۴۵٬۰۰۰ تومان
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <small>اتحاد</small>
+
+                    <strong>
+                        money
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <small>تاریخ ثبت پروفایل</small>
+
+                    <strong>
+                        ${escapeHTML(profile.registeredAt)}
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <small>وضعیت اطلاعات</small>
+
+                    <strong>
+                        ثبت شده
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="shared-code">
+
+                <span>
+                    کد مشترک شرکت در چالش
+                </span>
+
+                <strong>
+                    ${SHARED_CODE}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-actions">
+
+                <a
+                    class="btn"
+                    href="https://rubika.ir/amirtbpedit"
+                    target="_blank"
+                >
+                    ارتباط در روبیکا
+                </a>
+
+                <button
+                    class="btn"
+                    type="button"
+                    onclick="openNameModal()"
+                >
+                    تغییر اسم
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================
+   REGISTRATION
+========================= */
+
+const registerForm =
+    document.getElementById(
+        "registerForm"
+    );
+
+
+registerForm.addEventListener(
+    "submit",
+    function(e){
+
+        e.preventDefault();
+
+        /*
+        فقط اولین بار اطلاعات آیدی بازی
+        و آیدی روبیکا ثبت می‌شود.
+        */
+
+        const existingProfile =
+            localStorage.getItem(
+                STORAGE_KEY
+            );
+
+        if(existingProfile){
+
+            renderProfile();
+
+            document
+                .getElementById("profile")
+                .scrollIntoView({
+                    behavior:"smooth"
+                });
+
+            return;
+        }
+
+
+        const name =
+            document
+                .getElementById("name")
+                .value
+                .trim();
+
+        const gameId =
+            document
+                .getElementById("gameId")
+                .value
+                .trim();
+
+        const rubikaId =
+            document
+                .getElementById("rubikaId")
+                .value
+                .trim();
+
+
+        if(!name || !gameId || !rubikaId){
+
+            alert(
+                "لطفاً همه اطلاعات را وارد کنید."
+            );
+
+            return;
+        }
+
+
+        const profile =
+            createDefaultProfile(
+                name,
+                gameId,
+                rubikaId
+            );
+
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(profile)
+        );
+
+
+        /*
+        بعد از ثبت:
+        فرم دیگر نمایش داده نمی‌شود.
+        */
+
+        renderProfile();
+
+
+        document
+            .getElementById("profile")
+            .scrollIntoView({
+                behavior:"smooth"
+            });
+
+    }
+);
+
+
+/* =========================
+   NAME MODAL
+========================= */
+
+const nameModal =
+    document.getElementById(
+        "nameModal"
+    );
+
+const newNameInput =
+    document.getElementById(
+        "newName"
+    );
+
+const closeModal =
+    document.getElementById(
+        "closeModal"
+    );
+
+const saveName =
+    document.getElementById(
+        "saveName"
+    );
+
+
+function openNameModal(){
+
+    const profile =
+        JSON.parse(
+            localStorage.getItem(
+                STORAGE_KEY
+            )
+        );
+
+    if(!profile) return;
+
+    newNameInput.value =
+        profile.name;
+
+    nameModal.classList.add("show");
+
+    setTimeout(() => {
+
+        newNameInput.focus();
+
+    },100);
+
+}
+
+
+function closeNameModal(){
+
+    nameModal.classList.remove("show");
+
+}
+
+
+closeModal.addEventListener(
+    "click",
+    closeNameModal
+);
+
+
+nameModal.addEventListener(
+    "click",
+    function(e){
+
+        if(e.target === nameModal){
+
+            closeNameModal();
 
         }
 
-    });
-
-},{
-    threshold:.12
-});
-
-reveals.forEach(el=>revealObserver.observe(el));
+    }
+);
 
 
-/* REGISTER */
-const form=document.getElementById("registerForm");
+saveName.addEventListener(
+    "click",
+    function(){
 
-form.addEventListener("submit",function(e){
+        const profile =
+            JSON.parse(
+                localStorage.getItem(
+                    STORAGE_KEY
+                )
+            );
 
-    e.preventDefault();
+        if(!profile) return;
 
-    const name=document.getElementById("name").value.trim();
 
-    const gameId=document.getElementById("gameId").value.trim();
+        const newName =
+            newNameInput.value.trim();
 
-    const rubikaId=document.getElementById("rubikaId").value.trim();
 
-    if(!name || !gameId || !rubikaId){
+        if(!newName){
 
-        return;
+            alert(
+                "لطفاً اسم جدید را وارد کنید."
+            );
+
+            return;
+        }
+
+
+        /*
+        فقط name تغییر می‌کند.
+        gameId و rubikaId اصلاً دستکاری نمی‌شوند.
+        */
+
+        profile.name =
+            newName;
+
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(profile)
+        );
+
+
+        closeNameModal();
+
+        renderProfile();
+
+    }
+);
+
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+function updateCountdown(){
+
+    const now = Date.now();
+
+    let diff =
+        END_TIME - now;
+
+
+    if(diff < 0){
+
+        diff = 0;
 
     }
 
-    const participant={
-        name:name,
-        gameId:gameId,
-        rubikaId:rubikaId,
-        date:new Date().toLocaleString("fa-IR")
-    };
 
-    let participants=
-        JSON.parse(
-            localStorage.getItem("amirKhandeParticipants") || "[]"
+    const days =
+        Math.floor(
+            diff / (1000 * 60 * 60 * 24)
         );
 
-    participants.push(participant);
 
-    localStorage.setItem(
-        "amirKhandeParticipants",
-        JSON.stringify(participants)
-    );
+    const hours =
+        Math.floor(
+            (diff / (1000 * 60 * 60)) % 24
+        );
 
-    document.getElementById("successTitle").textContent=
-        name+" عزیز";
 
-    form.style.display="none";
+    const minutes =
+        Math.floor(
+            (diff / (1000 * 60)) % 60
+        );
 
-    document.getElementById("success").style.display="block";
 
-    document.getElementById("success").scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-    });
+    const seconds =
+        Math.floor(
+            (diff / 1000) % 60
+        );
 
-});
+
+    document.getElementById("days")
+        .textContent = days;
+
+    document.getElementById("hours")
+        .textContent = hours;
+
+    document.getElementById("minutes")
+        .textContent = minutes;
+
+    document.getElementById("seconds")
+        .textContent = seconds;
+
+}
+
+
+setInterval(
+    updateCountdown,
+    1000
+);
+
+updateCountdown();
+
+
+/* =========================
+   INITIAL PROFILE
+========================= */
+
+renderProfile();
+
+
+/* =========================
+   UPDATE PROFILE
+========================= */
+
+setInterval(
+    renderProfile,
+    1000
+);
 
 </script>
 
