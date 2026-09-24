@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>امیر خوانده | چالش دوئل پسرخوانده</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Vazirmatn",sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 15% 20%,rgba(255,174,0,.12),transparent 28%),
+        radial-gradient(circle at 85% 25%,rgba(255,70,0,.10),transparent 30%),
+        linear-gradient(135deg,#080706,#120d07 45%,#090807);
+    color:#fff;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+.bg{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:-1;
+}
+
+.grid{
+    position:absolute;
+    inset:-50%;
+    background-image:
+        linear-gradient(rgba(255,180,0,.045) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,180,0,.045) 1px,transparent 1px);
+    background-size:55px 55px;
+    transform:perspective(500px) rotateX(55deg);
+    animation:gridMove 12s linear infinite;
+}
+
+@keyframes gridMove{
+    from{transform:perspective(500px) rotateX(55deg) translateY(0);}
+    to{transform:perspective(500px) rotateX(55deg) translateY(55px);}
+}
+
+.orb{
+    position:absolute;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:.18;
+    animation:orb 8s ease-in-out infinite alternate;
+}
+
+.orb.one{
+    background:#ff9d00;
+    top:5%;
+    right:-100px;
+}
+
+.orb.two{
+    background:#ff3c00;
+    bottom:10%;
+    left:-120px;
+    animation-delay:2s;
+}
+
+@keyframes orb{
+    from{transform:translate(0,0) scale(1);}
+    to{transform:translate(70px,40px) scale(1.25);}
+}
+
+/* PARTICLES */
+.particle{
+    position:fixed;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:#ffc247;
+    box-shadow:0 0 12px #ffae00;
+    pointer-events:none;
+    opacity:.7;
+    animation:float linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(110vh) translateX(0);
+        opacity:0;
+    }
+    15%{opacity:.8;}
+    85%{opacity:.8;}
+    to{
+        transform:translateY(-10vh) translateX(80px);
+        opacity:0;
+    }
+}
+
+/* HEADER */
+header{
+    position:fixed;
+    top:0;
+    right:0;
+    left:0;
+    height:74px;
+    z-index:1000;
+    background:rgba(8,7,6,.78);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,174,0,.15);
+}
+
+.nav{
+    width:min(1150px,92%);
+    height:100%;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:900;
+    color:#ffb300;
+    text-shadow:0 0 20px rgba(255,174,0,.5);
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:#ddd;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#ffb300;
+}
+
+/* GENERAL */
+section{
+    width:min(1100px,92%);
+    margin:auto;
+    padding:100px 0;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding-top:130px;
+}
+
+.hero-content{
+    animation:heroIn 1.2s ease both;
+}
+
+@keyframes heroIn{
+    from{
+        opacity:0;
+        transform:translateY(40px) scale(.95);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.badge{
+    display:inline-block;
+    padding:9px 18px;
+    border:1px solid rgba(255,179,0,.4);
+    border-radius:100px;
+    color:#ffc44d;
+    background:rgba(255,174,0,.07);
+    box-shadow:0 0 25px rgba(255,174,0,.08);
+    margin-bottom:25px;
+    font-size:13px;
+}
+
+.hero h1{
+    font-size:clamp(55px,12vw,120px);
+    font-weight:900;
+    line-height:1;
+    color:#fff;
+    text-shadow:
+        0 0 10px rgba(255,174,0,.5),
+        0 0 40px rgba(255,100,0,.25);
+    animation:titleGlow 3s infinite alternate;
+}
+
+@keyframes titleGlow{
+    from{text-shadow:0 0 10px rgba(255,174,0,.35);}
+    to{text-shadow:0 0 30px rgba(255,174,0,.8),0 0 70px rgba(255,70,0,.25);}
+}
+
+.hero h2{
+    margin-top:15px;
+    font-size:clamp(20px,4vw,34px);
+    color:#ffb52a;
+}
+
+.hero p{
+    max-width:650px;
+    margin:25px auto;
+    color:#aaa;
+    line-height:2;
+}
+
+.buttons{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:30px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:180px;
+    padding:15px 25px;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:800;
+    transition:.35s;
+    cursor:pointer;
+    border:none;
+}
+
+.btn-main{
+    color:#17100a;
+    background:linear-gradient(135deg,#ffd15c,#ff9800);
+    box-shadow:0 10px 35px rgba(255,153,0,.25);
+}
+
+.btn-main:hover{
+    transform:translateY(-5px) scale(1.03);
+    box-shadow:0 15px 45px rgba(255,153,0,.45);
+}
+
+.btn-dark{
+    color:#fff;
+    border:1px solid rgba(255,179,0,.3);
+    background:rgba(255,255,255,.04);
+}
+
+.btn-dark:hover{
+    background:rgba(255,179,0,.08);
+    transform:translateY(-5px);
+}
+
+/* TITLES */
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title span{
+    color:#ffb300;
+    font-size:13px;
+    font-weight:800;
+}
+
+.section-title h2{
+    font-size:clamp(30px,6vw,50px);
+    margin-top:10px;
+}
+
+.section-title p{
+    color:#999;
+    margin-top:12px;
+}
+
+/* PRIZE */
+.prize{
+    position:relative;
+    max-width:600px;
+    margin:auto;
+    padding:50px 30px;
+    text-align:center;
+    border:1px solid rgba(255,179,0,.3);
+    background:
+        linear-gradient(145deg,rgba(255,179,0,.08),rgba(255,255,255,.025));
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:0 20px 80px rgba(0,0,0,.35);
+}
+
+.prize:before{
+    content:"";
+    position:absolute;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    background:#ffae00;
+    filter:blur(100px);
+    opacity:.12;
+    top:-100px;
+    left:-80px;
+}
+
+.prize-icon{
+    width:130px;
+    height:130px;
+    margin:0 auto 25px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:65px;
+    background:radial-gradient(circle,#3a2604,#171006);
+    border:2px solid rgba(255,193,7,.6);
+    box-shadow:
+        0 0 25px rgba(255,174,0,.35),
+        inset 0 0 30px rgba(255,174,0,.12);
+    animation:prizeFloat 3s ease-in-out infinite;
+}
+
+@keyframes prizeFloat{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-12px) rotate(3deg);}
+}
+
+.prize h3{
+    color:#ffc84d;
+    font-size:30px;
+}
+
+.prize h4{
+    margin-top:10px;
+    font-size:18px;
+    color:#ddd;
+}
+
+.prize p{
+    color:#888;
+    margin-top:10px;
+}
+
+/* CARDS */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.card{
+    padding:30px 22px;
+    border-radius:22px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.07);
+    transition:.4s;
+    position:relative;
+    overflow:hidden;
+}
+
+.card:after{
+    content:"";
+    position:absolute;
+    top:0;
+    right:-100%;
+    width:100%;
+    height:2px;
+    background:linear-gradient(90deg,transparent,#ffb300,transparent);
+    transition:.6s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:rgba(255,179,0,.3);
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
+
+.card:hover:after{
+    right:100%;
+}
+
+.card-icon{
+    font-size:35px;
+    margin-bottom:18px;
+}
+
+.card h3{
+    margin-bottom:12px;
+    color:#ffc44d;
+}
+
+.card p{
+    color:#999;
+    line-height:1.9;
+    font-size:14px;
+}
+
+/* SCORE */
+.score-box{
+    max-width:750px;
+    margin:auto;
+    display:grid;
+    gap:12px;
+}
+
+.score-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 25px;
+    border-radius:16px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.07);
+    transition:.3s;
+}
+
+.score-row:hover{
+    transform:translateX(-6px);
+    border-color:rgba(255,179,0,.3);
+}
+
+.score-row strong{
+    color:#fff;
+}
+
+.points{
+    color:#ffc247;
+    font-size:20px;
+    font-weight:900;
+}
+
+/* REGISTRATION */
+.form-wrap{
+    max-width:700px;
+    margin:auto;
+    padding:35px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,179,0,.2);
+    border-radius:25px;
+    box-shadow:0 20px 70px rgba(0,0,0,.25);
+}
+
+.field{
+    margin-bottom:18px;
+}
+
+.field label{
+    display:block;
+    margin-bottom:8px;
+    color:#ccc;
+    font-size:14px;
+}
+
+.field input{
+    width:100%;
+    padding:15px 17px;
+    border-radius:13px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(0,0,0,.25);
+    color:#fff;
+    outline:none;
+    transition:.3s;
+    font-size:15px;
+}
+
+.field input:focus{
+    border-color:#ffb300;
+    box-shadow:0 0 20px rgba(255,179,0,.1);
+}
+
+.form-wrap .btn{
+    width:100%;
+    margin-top:8px;
+}
+
+/* SUCCESS */
+.success{
+    display:none;
+    text-align:center;
+    padding:30px 20px;
+    border-radius:20px;
+    border:1px solid rgba(54,211,153,.35);
+    background:rgba(54,211,153,.06);
+    animation:successIn .6s ease;
+}
+
+@keyframes successIn{
+    from{
+        opacity:0;
+        transform:scale(.9);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.success-icon{
+    font-size:50px;
+    margin-bottom:15px;
+}
+
+.success h3{
+    color:#55e6ad;
+    margin-bottom:12px;
+}
+
+.success p{
+    color:#ccc;
+    line-height:2;
+}
+
+.rubika{
+    display:inline-block;
+    margin-top:18px;
+    color:#ffc247;
+    font-size:18px;
+    font-weight:900;
+    text-decoration:none;
+}
+
+/* RULES */
+.rules{
+    max-width:800px;
+    margin:auto;
+    padding:30px;
+    border-radius:25px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,179,0,.18);
+}
+
+.rules p{
+    color:#bbb;
+    line-height:2.2;
+    margin-bottom:15px;
+}
+
+.rules p:last-child{
+    margin-bottom:0;
+}
+
+/* PRICE */
+.price-box{
+    text-align:center;
+    padding:45px 25px;
+    border-radius:30px;
+    background:linear-gradient(145deg,rgba(255,174,0,.1),rgba(255,255,255,.025));
+    border:1px solid rgba(255,174,0,.25);
+}
+
+.price-label{
+    color:#999;
+}
+
+.price{
+    font-size:clamp(38px,8vw,65px);
+    font-weight:900;
+    color:#ffc247;
+    margin:10px 0;
+    text-shadow:0 0 30px rgba(255,174,0,.3);
+}
+
+.price-unit{
+    color:#aaa;
+}
+
+/* FOOTER */
+footer{
+    padding:45px 20px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.06);
+    background:rgba(0,0,0,.2);
+}
+
+footer strong{
+    color:#ffb300;
+}
+
+footer p{
+    color:#777;
+    margin-top:10px;
+    font-size:13px;
+}
+
+/* REVEAL */
+.reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s ease;
+}
+
+.reveal.show{
+    opacity:1;
+    transform:none;
+}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    nav{
+        gap:12px;
+    }
+
+    nav a{
+        font-size:12px;
+    }
+
+    .logo{
+        font-size:17px;
+    }
+
+    section{
+        padding:80px 0;
+    }
+
+    .form-wrap{
+        padding:25px 18px;
+    }
+}
+
+@media(max-width:500px){
+    header{
+        height:65px;
+    }
+
+    .nav{
+        width:94%;
+    }
+
+    nav{
+        gap:8px;
+    }
+
+    nav a:nth-child(3){
+        display:none;
+    }
+
+    .hero{
+        padding-top:100px;
+    }
+
+    .hero h1{
+        font-size:60px;
+    }
+
+    .hero h2{
+        font-size:20px;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    .score-row{
+        padding:17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg">
+    <div class="grid"></div>
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+</div>
+
+<header>
+    <div class="nav">
+        <div class="logo">امیر خوانده</div>
+
+        <nav>
+            <a href="#home">خانه</a>
+            <a href="#prize">جایزه</a>
+            <a href="#rules">قوانین</a>
+            <a href="#register">ثبت‌نام</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <div class="badge">🎮 چالش ویژه پسرخوانده</div>
+
+        <h1>امیر خوانده</h1>
+
+        <h2>چالش دوئل پسرخوانده</h2>
+
+        <p>
+            وارد یک رقابت هیجان‌انگیز شو، در دوئل‌ها امتیاز جمع کن
+            و در پایان برای به‌دست آوردن جایزه ویژه رقابت کن.
+        </p>
+
+        <div class="buttons">
+            <a class="btn btn-main" href="#register">🔥 ثبت‌نام در مسابقه</a>
+            <a class="btn btn-dark" href="#rules">📜 مشاهده قوانین</a>
+        </div>
+    </div>
+</section>
+
+<section id="prize" class="reveal">
+
+    <div class="section-title">
+        <span>PRIZE</span>
+        <h2>جایزه مسابقه</h2>
+        <p>برنده نهایی صاحب جایزه ویژه می‌شود</p>
+    </div>
+
+    <div class="prize">
+
+        <div class="prize-icon">🕵️</div>
+
+        <h3>شرلوک</h3>
+
+        <h4>لباس شرلوک</h4>
+
+        <p>بدون کارت قهرمان</p>
+
+    </div>
+
+</section>
+
+<section class="reveal">
+
+    <div class="section-title">
+        <span>CHALLENGE</span>
+        <h2>رقابت چطور انجام می‌شود؟</h2>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-icon">⚔️</div>
+            <h3>دوئل</h3>
+            <p>
+                بازیکنان در دوئل پسرخوانده با یکدیگر رقابت می‌کنند
+                و نتیجه هر مسابقه روی امتیاز نهایی تأثیر می‌گذارد.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🏆</div>
+            <h3>امتیازگیری</h3>
+            <p>
+                با بردن مسابقات امتیاز بیشتری دریافت می‌کنی
+                و برای رسیدن به جایگاه اول تلاش می‌کنی.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">👑</div>
+            <h3>قهرمانی</h3>
+            <p>
+                در پایان، بازیکنی که بیشترین امتیاز را داشته باشد
+                برنده جایزه ویژه مسابقه خواهد شد.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<section id="rules" class="reveal">
+
+    <div class="section-title">
+        <span>RULES</span>
+        <h2>سیستم امتیازات</h2>
+        <p>هر نتیجه امتیاز مخصوص خودش را دارد</p>
+    </div>
+
+    <div class="score-box">
+
+        <div class="score-row">
+            <strong>🏆 برد در دوئل</strong>
+            <span class="points">+۳ امتیاز</span>
+        </div>
+
+        <div class="score-row">
+            <strong>🤝 مساوی</strong>
+            <span class="points">+۱ امتیاز</span>
+        </div>
+
+        <div class="score-row">
+            <strong>❌ باخت</strong>
+            <span class="points">۰ امتیاز</span>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="reveal">
+
+    <div class="section-title">
+        <span>RULES</span>
+        <h2>قوانین مسابقه</h2>
+    </div>
+
+    <div class="rules">
+
+        <p>
+            ⚠️ شرکت‌کننده باید اطلاعات صحیح خود را هنگام ثبت‌نام وارد کند.
+        </p>
+
+        <p>
+            🎮 مسابقات به صورت دوئل در بازی پسرخوانده برگزار می‌شود.
+        </p>
+
+        <p>
+            🏆 برنده نهایی بر اساس بیشترین امتیاز تعیین خواهد شد.
+        </p>
+
+        <p>
+            💳 هزینه ورود به مسابقه ۴۵٬۰۰۰ تومان است.
+        </p>
+
+        <p>
+            📩 پس از ثبت‌نام، برای هماهنگی و واریز وجه به پشتیبانی روبیکا مراجعه کنید.
+        </p>
+
+        <p>
+            🕵️ جایزه مسابقه لباس شرلوک، بدون کارت قهرمان است.
+        </p>
+
+    </div>
+
+</section>
+
+<section class="reveal">
+
+    <div class="section-title">
+        <span>ENTRY</span>
+        <h2>هزینه ورود</h2>
+    </div>
+
+    <div class="price-box">
+
+        <div class="price-label">ورودی مسابقه</div>
+
+        <div class="price">۴۵٬۰۰۰</div>
+
+        <div class="price-unit">تومان</div>
+
+    </div>
+
+</section>
+
+<section id="register" class="reveal">
+
+    <div class="section-title">
+        <span>REGISTER</span>
+        <h2>ثبت‌نام مسابقه</h2>
+        <p>اطلاعات خودت را وارد کن تا ثبت‌نام انجام شود</p>
+    </div>
+
+    <div class="form-wrap">
+
+        <form id="registerForm">
+
+            <div class="field">
+                <label>نام مخاطب</label>
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="مثلاً امیر"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label>آیدی بازی پسرخوانده</label>
+                <input
+                    type="text"
+                    id="gameId"
+                    placeholder="آیدی داخل بازی"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label>آیدی روبیکا</label>
+                <input
+                    type="text"
+                    id="rubikaId"
+                    placeholder="@username"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn btn-main">
+                🚀 ثبت‌نام
+            </button>
+
+        </form>
+
+        <div class="success" id="success">
+
+            <div class="success-icon">✅</div>
+
+            <h3 id="successTitle"></h3>
+
+            <p>
+                شما با موفقیت ثبت نام شدی
+                <br>
+                برای واریز وجه به روبیکا برو:
+            </p>
+
+            <a
+                class="rubika"
+                href="https://rubika.ir/amirtbpedit"
+                target="_blank"
+            >
+                @amirtbpedit
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+<footer>
+    <strong>امیر خوانده</strong>
+    <p>چالش دوئل پسرخوانده | طراحی و ساخته شده توسط امیر حسین جبارفر</p>
+</footer>
+
+<script>
+
+/* PARTICLES */
+for(let i=0;i<45;i++){
+
+    const p=document.createElement("div");
+
+    p.className="particle";
+
+    p.style.left=Math.random()*100+"%";
+
+    p.style.animationDuration=(5+Math.random()*8)+"s";
+
+    p.style.animationDelay=(-Math.random()*10)+"s";
+
+    p.style.width=(1+Math.random()*3)+"px";
+
+    p.style.height=p.style.width;
+
+    document.body.appendChild(p);
+}
+
+
+/* REVEAL */
+const reveals=document.querySelectorAll(".reveal");
+
+const revealObserver=new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add("show");
+
+        }
+
+    });
+
+},{
+    threshold:.12
+});
+
+reveals.forEach(el=>revealObserver.observe(el));
+
+
+/* REGISTER */
+const form=document.getElementById("registerForm");
+
+form.addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const name=document.getElementById("name").value.trim();
+
+    const gameId=document.getElementById("gameId").value.trim();
+
+    const rubikaId=document.getElementById("rubikaId").value.trim();
+
+    if(!name || !gameId || !rubikaId){
+
+        return;
+
+    }
+
+    const participant={
+        name:name,
+        gameId:gameId,
+        rubikaId:rubikaId,
+        date:new Date().toLocaleString("fa-IR")
+    };
+
+    let participants=
+        JSON.parse(
+            localStorage.getItem("amirKhandeParticipants") || "[]"
+        );
+
+    participants.push(participant);
+
+    localStorage.setItem(
+        "amirKhandeParticipants",
+        JSON.stringify(participants)
+    );
+
+    document.getElementById("successTitle").textContent=
+        name+" عزیز";
+
+    form.style.display="none";
+
+    document.getElementById("success").style.display="block";
+
+    document.getElementById("success").scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+});
+
+</script>
+
+</body>
+</html>
