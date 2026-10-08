@@ -2590,12 +2590,284 @@ footer strong{
 
 }
 
+
+/* =========================================================
+   EXTRA FX — CINEMATIC INTRO + MAFIA BOT + CURSOR
+   Added without changing existing sections/backend.
+========================================================= */
+
+/* ---------- Cinematic intro enhancement ---------- */
+#loader{
+    isolation:isolate;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 50% 45%,rgba(115,75,255,.20),transparent 28%),
+        radial-gradient(circle at 20% 80%,rgba(0,234,255,.12),transparent 25%),
+        radial-gradient(circle at 80% 20%,rgba(255,45,141,.12),transparent 25%),
+        #040611;
+}
+
+#loader::before,
+#loader::after{
+    content:"";
+    position:absolute;
+    inset:-30%;
+    pointer-events:none;
+}
+
+#loader::before{
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 80px,
+            rgba(0,234,255,.035) 81px,
+            transparent 82px 160px
+        );
+    transform:perspective(700px) rotateX(68deg) translateY(10%);
+    animation:introGrid 8s linear infinite;
+}
+
+#loader::after{
+    background:conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(115,80,255,.12),
+        transparent 25%,
+        rgba(0,234,255,.10),
+        transparent 55%,
+        rgba(255,50,150,.10),
+        transparent
+    );
+    filter:blur(35px);
+    animation:introSpin 8s linear infinite;
+}
+
+.loaderBox{
+    position:relative;
+    z-index:5;
+    transform-style:preserve-3d;
+}
+
+.loaderBox::before{
+    content:"";
+    position:absolute;
+    width:420px;
+    height:420px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:linear-gradient(135deg,#724cff,#00eaff,#ff2d8d);
+    filter:blur(95px);
+    opacity:.17;
+    animation:introAura 3s ease-in-out infinite;
+    z-index:-1;
+}
+
+.loaderLogo{
+    position:relative;
+    text-shadow:
+        0 0 15px rgba(255,255,255,.25),
+        0 0 45px rgba(120,80,255,.35),
+        0 0 90px rgba(0,234,255,.18);
+    animation:
+        loaderAppear 1.3s ease,
+        gradient 2s linear infinite,
+        introLogoFloat 3s ease-in-out 1.3s infinite;
+}
+
+.loaderSub{
+    position:relative;
+    animation:introSub .9s .35s both;
+}
+
+.loaderLine{
+    position:relative;
+    box-shadow:0 0 35px rgba(100,80,255,.15);
+    animation:introLine .9s .65s both;
+}
+
+.introFX{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:2;
+}
+
+.introFX i{
+    position:absolute;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 12px #fff,0 0 30px #00eaff;
+    opacity:0;
+    animation:introParticle linear infinite;
+}
+
+.introFX i:nth-child(1){left:12%;animation-duration:4.5s;animation-delay:-1s}
+.introFX i:nth-child(2){left:24%;animation-duration:6s;animation-delay:-4s}
+.introFX i:nth-child(3){left:37%;animation-duration:5s;animation-delay:-2s}
+.introFX i:nth-child(4){left:51%;animation-duration:7s;animation-delay:-5s}
+.introFX i:nth-child(5){left:64%;animation-duration:4s;animation-delay:-2.5s}
+.introFX i:nth-child(6){left:77%;animation-duration:6.5s;animation-delay:-4.5s}
+.introFX i:nth-child(7){left:89%;animation-duration:5.5s;animation-delay:-3s}
+.introFX i:nth-child(8){left:45%;animation-duration:8s;animation-delay:-7s}
+
+.introScan{
+    position:absolute;
+    width:150%;
+    height:2px;
+    left:-25%;
+    top:50%;
+    background:linear-gradient(90deg,transparent,#00eaff,#9c7cff,#ff4da8,transparent);
+    filter:blur(2px);
+    opacity:.45;
+    animation:introScan 2.8s ease-in-out infinite;
+}
+
+@keyframes introGrid{
+    to{transform:perspective(700px) rotateX(68deg) translateY(100px)}
+}
+@keyframes introSpin{to{transform:rotate(360deg) scale(1.08)}}
+@keyframes introAura{
+    50%{transform:translate(-50%,-50%) scale(1.35);opacity:.32}
+}
+@keyframes introLogoFloat{
+    50%{transform:translateY(-7px) scale(1.015)}
+}
+@keyframes introSub{
+    from{opacity:0;transform:translateY(20px);filter:blur(12px)}
+    to{opacity:1;transform:none;filter:blur(0)}
+}
+@keyframes introLine{
+    from{opacity:0;transform:scaleX(.3);filter:blur(8px)}
+    to{opacity:1;transform:scaleX(1);filter:blur(0)}
+}
+@keyframes introParticle{
+    0%{transform:translateY(110vh) translateX(-20px) scale(.3);opacity:0}
+    15%{opacity:.8}
+    80%{opacity:.7}
+    100%{transform:translateY(-15vh) translateX(80px) scale(1.5);opacity:0}
+}
+@keyframes introScan{
+    0%,100%{transform:translateY(-180px) scaleX(.55);opacity:0}
+    50%{transform:translateY(180px) scaleX(1);opacity:.7}
+}
+
+/* ---------- Cursor system ---------- */
+.cursorCore,
+.cursorRing,
+.cursorAura,
+.cursorTrail,
+.cursorShockwave{
+    position:fixed;
+    pointer-events:none;
+    z-index:100000;
+    border-radius:50%;
+    left:0;
+    top:0;
+}
+
+.cursorCore{
+    width:7px;
+    height:7px;
+    margin:-3.5px 0 0 -3.5px;
+    background:#fff;
+    box-shadow:0 0 10px #fff,0 0 25px #00eaff,0 0 45px #744cff;
+    mix-blend-mode:screen;
+}
+
+.cursorRing{
+    width:34px;
+    height:34px;
+    margin:-17px 0 0 -17px;
+    border:1px solid rgba(0,234,255,.75);
+    box-shadow:0 0 18px rgba(0,234,255,.25),inset 0 0 12px rgba(115,80,255,.12);
+    transition:width .25s,height .25s,margin .25s,border-color .25s,box-shadow .25s,transform .12s;
+}
+
+.cursorAura{
+    width:90px;
+    height:90px;
+    margin:-45px 0 0 -45px;
+    background:radial-gradient(circle,rgba(0,234,255,.13),rgba(115,80,255,.07) 38%,transparent 70%);
+    filter:blur(7px);
+    transition:width .3s,height .3s,margin .3s,opacity .3s;
+}
+
+.cursorTrail{
+    width:6px;
+    height:6px;
+    margin:-3px 0 0 -3px;
+    background:rgba(125,100,255,.8);
+    box-shadow:0 0 12px rgba(0,234,255,.8);
+    opacity:.45;
+    transition:opacity .25s;
+}
+
+.cursorShockwave{
+    width:12px;
+    height:12px;
+    margin:-6px 0 0 -6px;
+    border:1px solid rgba(0,234,255,.9);
+    animation:cursorShock .65s ease-out forwards;
+}
+
+body.cursor-hover .cursorRing{
+    width:52px;
+    height:52px;
+    margin:-26px 0 0 -26px;
+    border-color:rgba(255,105,190,.9);
+    box-shadow:0 0 25px rgba(255,70,170,.28),inset 0 0 18px rgba(0,234,255,.12);
+}
+
+body.cursor-hover .cursorAura{
+    width:125px;
+    height:125px;
+    margin:-62.5px 0 0 -62.5px;
+    opacity:.9;
+}
+
+body.cursor-down .cursorRing{
+    transform:scale(.72);
+}
+
+@keyframes cursorShock{
+    from{transform:scale(.4);opacity:1}
+    to{transform:scale(9);opacity:0}
+}
+
+/* ---------- Mafia Bot ---------- */
+ .mafiaBotLauncher{position:fixed;right:24px;bottom:24px;z-index:9000;display:flex;align-items:center;gap:10px;padding:15px 20px;border:1px solid rgba(255,255,255,.16);border-radius:22px;color:#fff;background:#050505;box-shadow:0 18px 70px rgba(0,0,0,.65),0 0 35px rgba(255,255,255,.06),inset 0 0 25px rgba(255,255,255,.025);cursor:pointer;overflow:hidden;transition:.45s cubic-bezier(.16,1,.3,1);animation:botLauncherIn 1.2s 2.2s both,botFloat 3s ease-in-out infinite}
+.mafiaBotLauncher::before{content:"";position:absolute;inset:-100%;background:conic-gradient(transparent,rgba(255,255,255,.18),transparent,rgba(255,255,255,.08),transparent);animation:botSpin 3.5s linear infinite}.mafiaBotLauncher::after{content:"";position:absolute;left:-30%;right:-30%;bottom:-2px;height:2px;background:linear-gradient(90deg,transparent,#fff,transparent);box-shadow:0 0 18px rgba(255,255,255,.5);animation:botLauncherScan 2s linear infinite}.mafiaBotLauncher strong,.mafiaBotLauncher span{position:relative;z-index:1}.mafiaBotLauncher.active{transform:translateY(-5px) scale(1.04);box-shadow:0 22px 80px rgba(0,0,0,.8),0 0 50px rgba(255,255,255,.1)}
+.botMiniDot{width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 10px #fff,0 0 28px rgba(255,255,255,.7);animation:botDot 1s infinite}.mafiaBotLauncher span:last-child{font-size:9px;letter-spacing:1.5px;color:#aaa}
+.mafiaBotPanel{position:fixed;right:24px;bottom:88px;width:min(430px,calc(100vw - 30px));z-index:8999;opacity:0;visibility:hidden;transform:translateY(45px) scale(.76) rotateX(18deg);transform-origin:bottom right;filter:blur(22px);transition:opacity .4s,transform .65s cubic-bezier(.16,1,.3,1),filter .65s,visibility .4s;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:30px;background:#030303;color:#fff;box-shadow:0 35px 120px rgba(0,0,0,.9),0 0 90px rgba(255,255,255,.055),inset 0 0 70px rgba(255,255,255,.018)}
+.mafiaBotPanel.open{opacity:1;visibility:visible;transform:none;filter:blur(0)}.mafiaBotPanel::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 15% 0%,rgba(255,255,255,.07),transparent 30%),radial-gradient(circle at 100% 100%,rgba(255,255,255,.045),transparent 35%)}.mafiaBotPanel.open::after{content:"";position:absolute;left:-20%;top:-10%;width:140%;height:2px;background:linear-gradient(90deg,transparent,#fff,transparent);box-shadow:0 0 22px rgba(255,255,255,.7);animation:botScan 2.2s linear infinite;pointer-events:none}
+.mafiaBotHeader{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid rgba(255,255,255,.09)}.mafiaBotTitle{font-size:27px;font-weight:900;color:#fff;text-shadow:0 0 18px rgba(255,255,255,.35);animation:mafiaTitlePulse 2.5s ease-in-out infinite}.mafiaBotStatus{font-size:11px;color:#888;margin-top:5px;display:flex;align-items:center;gap:7px}.mafiaBotStatus i{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 12px #fff;animation:botDot 1s infinite}.mafiaBotClose{width:40px;height:40px;border-radius:14px;border:1px solid rgba(255,255,255,.13);background:#090909;color:#fff;font-size:25px;cursor:pointer;transition:.35s}.mafiaBotClose:hover{transform:rotate(90deg) scale(1.1);background:#fff;color:#000;box-shadow:0 0 35px rgba(255,255,255,.3)}
+.mafiaBotWelcome{position:relative;z-index:2;margin:15px;padding:15px;border-radius:18px;color:#c8c8c8;line-height:1.9;font-size:13px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);animation:welcomeIn .7s .1s both}.mafiaQuestions{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:8px;padding:0 15px 13px}.mafiaQuestion{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.13);background:#0a0a0a;color:#ddd;border-radius:14px;padding:10px 12px;font-family:inherit;font-size:12px;cursor:pointer;transition:.35s cubic-bezier(.16,1,.3,1)}.mafiaQuestion::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent,rgba(255,255,255,.13),transparent);transform:translateX(-120%);transition:.5s}.mafiaQuestion:hover::before{transform:translateX(120%)}.mafiaQuestion:hover,.mafiaQuestion.clicked{transform:translateY(-4px) scale(1.035);border-color:rgba(255,255,255,.45);color:#fff;background:#111;box-shadow:0 10px 35px rgba(0,0,0,.7),0 0 22px rgba(255,255,255,.07)}
+.mafiaConversation{position:relative;z-index:2;max-height:255px;overflow:auto;padding:5px 15px 15px;scrollbar-width:thin;scrollbar-color:#555 transparent}.mafiaMsg{max-width:90%;padding:11px 13px;margin:8px 0;border-radius:17px;line-height:1.9;font-size:13px;opacity:0;transform:translateY(12px) scale(.96);filter:blur(7px);transition:.45s cubic-bezier(.16,1,.3,1)}.mafiaMsg.show{opacity:1;transform:none;filter:blur(0)}.mafiaMsg.bot{margin-right:auto;background:#0b0b0b;border:1px solid rgba(255,255,255,.1);color:#eee;box-shadow:0 10px 35px rgba(0,0,0,.45),inset 0 0 20px rgba(255,255,255,.015)}.mafiaMsg.user{margin-left:auto;background:#151515;border:1px solid rgba(255,255,255,.13);color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.45)}.mafiaTypingBox{display:flex;align-items:center;gap:10px}.mafiaTypingLabel{font-size:10px;color:#777}.mafiaTyping{display:flex;gap:5px;align-items:center}.mafiaTyping i{width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 8px #fff;animation:typingDot .75s infinite}.mafiaTyping i:nth-child(2){animation-delay:.15s}.mafiaTyping i:nth-child(3){animation-delay:.3s}.mafiaBotFooter{position:relative;z-index:2;padding:11px 15px;color:#666;font-size:10px;text-align:center;border-top:1px solid rgba(255,255,255,.07);background:#050505}.answerPulse{animation:answerPulse .7s ease}.mafiaBotPanel.open .mafiaQuestion{animation:questionEntrance .5s both}.mafiaBotPanel.open .mafiaQuestion:nth-child(2){animation-delay:.04s}.mafiaBotPanel.open .mafiaQuestion:nth-child(3){animation-delay:.08s}.mafiaBotPanel.open .mafiaQuestion:nth-child(4){animation-delay:.12s}.mafiaBotPanel.open .mafiaQuestion:nth-child(5){animation-delay:.16s}.mafiaBotPanel.open .mafiaQuestion:nth-child(6){animation-delay:.20s}.mafiaBotPanel.open .mafiaQuestion:nth-child(7){animation-delay:.24s}.mafiaBotPanel.open .mafiaQuestion:nth-child(8){animation-delay:.28s}
+@keyframes questionEntrance{from{opacity:0;transform:translateY(15px) scale(.85);filter:blur(8px)}to{opacity:1;transform:none;filter:blur(0)}}@keyframes answerPulse{50%{box-shadow:0 35px 130px rgba(0,0,0,.95),0 0 70px rgba(255,255,255,.12),inset 0 0 70px rgba(255,255,255,.04)}}@keyframes mafiaTitlePulse{50%{text-shadow:0 0 28px rgba(255,255,255,.65)}}@keyframes botLauncherScan{to{transform:translateX(100%)}}
+@media(max-width:550px){.mafiaBotLauncher{right:14px;bottom:14px;padding:13px 16px;border-radius:18px}.mafiaBotPanel{right:10px;bottom:75px;width:calc(100vw - 20px);border-radius:25px}.mafiaQuestions{gap:6px}.mafiaQuestion{font-size:11px;padding:8px 9px}}
+@media(prefers-reduced-motion:reduce){.introFX *,.mafiaBotLauncher,.mafiaBotPanel *{animation:none!important}.mafiaBotPanel{transition:none}}
+
+
+body.cursor-hover .cursorRing{border-color:#00eaff;box-shadow:0 0 20px rgba(0,234,255,.55),inset 0 0 15px rgba(0,234,255,.1)}
+body.cursor-down .cursorRing{transform:translate(-50%,-50%) scale(.72)!important}
+
 </style>
 </head>
 
 <body>
 
 <div id="loader">
+
+
+    <div class="introFX" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <div class="introScan"></div>
+    </div>
 
     <div class="loaderBox">
 
@@ -4400,7 +4672,263 @@ const chatChannel =
 
 loadChatMessages();
 
+
+/* =========================================================
+   EXTRA FX JS — INTRO / CURSOR / MAFIA BOT
+========================================================= */
+
+/* ---------- Cursor ---------- */
+(function(){
+    if(window.matchMedia && window.matchMedia("(pointer:coarse)").matches){
+        return;
+    }
+
+    const core=document.createElement("div");
+    const ring=document.createElement("div");
+    const aura=document.createElement("div");
+
+    core.className="cursorCore";
+    ring.className="cursorRing";
+    aura.className="cursorAura";
+
+    document.body.append(core,aura,ring);
+
+    let mx=window.innerWidth/2;
+    let my=window.innerHeight/2;
+    let rx=mx, ry=my;
+    let ax=mx, ay=my;
+    let trail=[];
+
+    for(let i=0;i<9;i++){
+        const t=document.createElement("div");
+        t.className="cursorTrail";
+        t.style.opacity=String(.36-i*.035);
+        document.body.appendChild(t);
+        trail.push({el:t,x:mx,y:my});
+    }
+
+    window.addEventListener("mousemove",e=>{
+        mx=e.clientX;
+        my=e.clientY;
+        core.style.transform=`translate3d(${mx}px,${my}px,0)`;
+    },{passive:true});
+
+    window.addEventListener("mousedown",()=>document.body.classList.add("cursor-down"));
+    window.addEventListener("mouseup",()=>document.body.classList.remove("cursor-down"));
+
+    document.addEventListener("mouseover",e=>{
+        if(e.target.closest("a,button,input,textarea,select,.winner,.infoCard,.pointRow,.allianceItem,.sherlockShowcase")){
+            document.body.classList.add("cursor-hover");
+        }
+    });
+
+    document.addEventListener("mouseout",e=>{
+        if(e.target.closest("a,button,input,textarea,select,.winner,.infoCard,.pointRow,.allianceItem,.sherlockShowcase")){
+            document.body.classList.remove("cursor-hover");
+        }
+    });
+
+    function frame(){
+        rx+=(mx-rx)*.16;
+        ry+=(my-ry)*.16;
+        ax+=(mx-ax)*.075;
+        ay+=(my-ay)*.075;
+
+        ring.style.transform=`translate3d(${rx}px,${ry}px,0)`;
+        aura.style.transform=`translate3d(${ax}px,${ay}px,0)`;
+
+        let px=mx,py=my;
+        trail.forEach((item,i)=>{
+            item.x+=(px-item.x)*(.24-i*.012);
+            item.y+=(py-item.y)*(.24-i*.012);
+            item.el.style.transform=`translate3d(${item.x}px,${item.y}px,0) scale(${1-i*.06})`;
+            px=item.x; py=item.y;
+        });
+
+        requestAnimationFrame(frame);
+    }
+    frame();
+
+    document.addEventListener("click",e=>{
+        const wave=document.createElement("div");
+        wave.className="cursorShockwave";
+        wave.style.left=e.clientX+"px";
+        wave.style.top=e.clientY+"px";
+        document.body.appendChild(wave);
+        setTimeout(()=>wave.remove(),700);
+    });
+})();
+
+/* ---------- Mafia Bot / fixed + enhanced ---------- */
+document.addEventListener("DOMContentLoaded", function(){
+    const launcher=document.getElementById("mafiaBotLauncher");
+    const panel=document.getElementById("mafiaBotPanel");
+    const close=document.getElementById("mafiaBotClose");
+    const conversation=document.getElementById("mafiaConversation");
+    if(!launcher || !panel || !close || !conversation) return;
+
+    const answers={
+        "چالش امیر خوانده چیه؟":"🕵️ چالش امیر خوانده یک رقابت دوئلی ویژه برای به‌دست آوردن جایزه اصلی یعنی اسکین شرلوک است.",
+        "موضوع چالش چیه؟":"🎯 موضوع چالش، رقابت دوئلی بین شرکت‌کننده‌ها برای رسیدن به رتبه‌های برتر و جایزه اصلی است.",
+        "هدف چالش چیه؟":"🏆 هدف اصلی، کسب بیشترین امتیاز و رسیدن به رتبه‌های برتر برای دریافت جوایز است.",
+        "جایزه نفر اول چیه؟":"🥇 نفر اول: اسکین شرلوک — جایزه اصلی چالش.",
+        "جایزه نفر دوم چیه؟":"🥈 نفر دوم: ۲۵۰۰ جم.",
+        "جایزه نفر سوم چیه؟":"🥉 نفر سوم: ۱۲۰۰ جم.",
+        "جوایز چالش چیه؟":"🏆 رتبه اول: اسکین شرلوک
+💎 رتبه دوم: ۲۵۰۰ جم
+💎 رتبه سوم: ۱۲۰۰ جم",
+        "اسکین شرلوک چیه؟":"🕵️ اسکین شرلوک جایزه اصلی نفر اول چالش است و در سایت هم به‌صورت ویژه نمایش داده می‌شود.",
+        "اسکین کارت قهرمان داره؟":"✨ نه؛ جایزه به‌عنوان اسکین شرلوک و بدون کارت قهرمان معرفی شده است.",
+        "هزینه ورود چقدره؟":"💰 هزینه ورود به چالش ۱۵۰٬۰۰۰ تومان است.",
+        "قیمت شرکت چقدره؟":"💰 مبلغ شرکت در چالش ۱۵۰٬۰۰۰ تومان است.",
+        "ظرفیت چقدره؟":"👥 ظرفیت چالش فقط ۵ نفر است.",
+        "چند نفر شرکت میکنن؟":"👥 این چالش برای حداکثر ۵ نفر طراحی شده است.",
+        "چطور شرکت کنم؟":"🎮 برای هماهنگی و شرکت در چالش، در روبیکا به @amirtbpedit پیام بده.",
+        "ثبت نام چطوریه؟":"📲 ثبت‌نام و هماهنگی از طریق روبیکا انجام می‌شود؛ برای اطلاعات و هماهنگی به @amirtbpedit پیام بده.",
+        "آیدی روبیکا چیه؟":"📱 آیدی پشتیبانی و هماهنگی: @amirtbpedit",
+        "پشتیبانی کجاست؟":"📲 پشتیبانی و هماهنگی مسابقه در روبیکا با آیدی @amirtbpedit انجام می‌شود.",
+        "چطور با پشتیبانی ارتباط بگیرم؟":"💬 در روبیکا به @amirtbpedit پیام بده تا برای شرکت و هماهنگی راهنمایی شوی.",
+        "قوانین چالش چیه؟":"⚠️ اگر با کسی که نباید وارد دوئل شوید کیک میشوید. همچنین قبل از روز مسابقه باید عضو اتحاد موردنیاز باشید.",
+        "قانون دوئل چیه؟":"⚔️ اگر با کسی که نباید وارد دوئل شوید کیک میشوید. قبل از مسابقه هم شرایط اتحاد را رعایت کن.",
+        "اگر با فرد اشتباه بازی کنم چی؟":"⚠️ طبق قانون سایت، اگر با کسی که نباید وارد دوئل شوید کیک میشوید.",
+        "اتحاد مورد نیاز چیه؟":"🤝 نام اتحاد: money
+🆔 آیدی: c212246901
+🌍 موقعیت: بین‌المللی
+🏆 جام موردنیاز: ۵۰۰
+🔓 نوع: باز و کامل",
+        "اسم اتحاد چیه؟":"🤝 اسم اتحاد موردنیاز: money",
+        "آیدی اتحاد چیه؟":"🆔 آیدی اتحاد: c212246901",
+        "جام اتحاد چقدره؟":"🏆 برای اتحاد موردنیاز، ۵۰۰ جام لازم است.",
+        "اتحاد کجاست؟":"🌍 موقعیت اتحاد: بین‌المللی.",
+        "اتحاد بازه؟":"🔓 بله، اتحاد به‌عنوان «باز و کامل» معرفی شده است.",
+        "کی باید عضو اتحاد باشم؟":"⏰ باید قبل از روز مسابقه عضو اتحاد موردنیاز باشی.",
+        "امتیاز برد چقدره؟":"🏆 هر برد = +۲ امتیاز.",
+        "امتیاز مساوی چقدره؟":"🤝 هر مساوی = +۱ امتیاز.",
+        "امتیاز باخت چقدره؟":"❌ باخت = ۰ امتیاز.",
+        "برد چند امتیازه؟":"🏆 هر برد +۲ امتیاز دارد.",
+        "مساوی چند امتیازه؟":"🤝 هر مساوی +۱ امتیاز دارد.",
+        "باخت چند امتیازه؟":"❌ باخت ۰ امتیاز دارد.",
+        "هر برد چند امتیاز؟":"⚡ هر برد = +۲ امتیاز.",
+        "هر امتیاز چه فایده ای داره؟":"🔥 هر امتیاز یک قدم نزدیک‌تر به شرلوک است! هدف، جمع‌کردن امتیاز بیشتر برای رسیدن به رتبه‌های برتر است.",
+        "چطور امتیاز بیشتری بگیرم؟":"🏆 با بردن دوئل‌ها امتیاز بیشتری می‌گیری؛ هر برد +۲ و هر مساوی +۱ امتیاز دارد.",
+        "روز مسابقه کیه؟":"⏳ زمان دقیق را از شمارش معکوس و اطلاعات همین صفحه دنبال کن.",
+        "چقدر تا پایان چالش مونده؟":"⏳ شمارش معکوس بالای بخش چالش زمان باقی‌مانده را به‌صورت زنده نشان می‌دهد.",
+        "چقدر تا مسابقه مونده؟":"⏳ زمان مسابقه را از شمارش معکوس و اطلاعات بخش چالش بررسی کن.",
+        "مسابقه کجاست؟":"🎮 اطلاعات و هماهنگی مسابقه از طریق همین سایت و پشتیبانی روبیکا انجام می‌شود.",
+        "چالش چند مرحله داره؟":"🎯 روند رقابت بر اساس دوئل‌ها و امتیازهای کسب‌شده پیش می‌رود و رتبه‌های برتر جوایز را دریافت می‌کنند.",
+        "چطور برنده بشم؟":"🔥 روی بردهای بیشتر تمرکز کن؛ هر برد +۲ امتیاز دارد و امتیاز بیشتر یعنی یک قدم نزدیک‌تر به شرلوک.",
+        "نفر اول چه چیزی میگیره؟":"🥇 نفر اول اسکین شرلوک را دریافت می‌کند.",
+        "نفر دوم چه چیزی میگیره؟":"🥈 نفر دوم ۲۵۰۰ جم دریافت می‌کند.",
+        "نفر سوم چه چیزی میگیره؟":"🥉 نفر سوم ۱۲۰۰ جم دریافت می‌کند.",
+        "چند جایزه داریم؟":"🎁 سه رتبه جایزه دارند: نفر اول اسکین شرلوک، نفر دوم ۲۵۰۰ جم و نفر سوم ۱۲۰۰ جم.",
+        "آیا ظرفیت محدوده؟":"🔒 بله، ظرفیت فقط ۵ نفر است.",
+        "آیا باید اتحاد داشته باشم؟":"🤝 بله، طبق اطلاعات سایت باید قبل از روز مسابقه عضو اتحاد موردنیاز باشی.",
+        "آیا باید قبل مسابقه عضو اتحاد باشم؟":"✅ بله، عضویت در اتحاد باید قبل از روز مسابقه انجام شود.",
+        "آیدی پشتیبانی چیست؟":"📱 @amirtbpedit",
+        "روبیکا چیست؟":"📱 برای هماهنگی این چالش، کانال ارتباطی اعلام‌شده روبیکا و آیدی @amirtbpedit است.",
+        "چت عمومی چیه؟":"💬 چت عمومی بخشی از سایت است که بازیکنان می‌توانند در آن با هم گفتگو کنند.",
+        "مافیا بات چیکار میکنه؟":"🤖 من اطلاعات آماده مربوط به چالش امیر خوانده، جوایز، هزینه، قوانین، اتحاد و امتیازها را بهت می‌گویم.",
+        "تو کی هستی؟":"🕵️ من مافیا بات هستم؛ راهنمای چالش امیر خوانده! از سؤال‌های آماده یکی را انتخاب کن.",
+        "سلام":"👋 سلام! به امیر خوانده خوش اومدی. یکی از سؤال‌های آماده رو انتخاب کن تا راهنمایی‌ات کنم.",
+        "خداحافظ":"👋 موفق باشی قهرمان! یادت نره امتیاز بیشتر یعنی یک قدم نزدیک‌تر به شرلوک!",
+        "ممنون":"😎 خواهش می‌کنم! موفق باشی و برای هماهنگی به @amirtbpedit پیام بده.",
+        "چه خبر؟":"🔥 مافیا بات آماده است! درباره چالش، جایزه، هزینه، قوانین، اتحاد یا امتیاز سؤال کن."
+    };
+
+    function openBot(){
+        panel.classList.add("open");
+        launcher.classList.add("active");
+        launcher.setAttribute("aria-expanded","true");
+    }
+    function closeBot(){
+        panel.classList.remove("open");
+        launcher.classList.remove("active");
+        launcher.setAttribute("aria-expanded","false");
+    }
+    launcher.addEventListener("click",openBot);
+    close.addEventListener("click",closeBot);
+    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeBot();});
+
+    function addMessage(text,type){
+        const el=document.createElement("div");
+        el.className="mafiaMsg "+type;
+        el.style.whiteSpace="pre-line";
+        el.textContent=text;
+        conversation.appendChild(el);
+        requestAnimationFrame(()=>el.classList.add("show"));
+        conversation.scrollTo({top:conversation.scrollHeight,behavior:"smooth"});
+    }
+    function addTyping(){
+        const el=document.createElement("div");
+        el.className="mafiaMsg bot mafiaTypingBox show";
+        el.innerHTML='<span class="mafiaTypingLabel">در حال پاسخ</span><span class="mafiaTyping"><i></i><i></i><i></i></span>';
+        conversation.appendChild(el);
+        conversation.scrollTo({top:conversation.scrollHeight,behavior:"smooth"});
+        return el;
+    }
+    function ask(btn){
+        const q=btn.dataset.question||btn.textContent.trim();
+        const answer=answers[q]||"🤖 این سؤال در پاسخ‌های آماده من نیست. درباره چالش، جایزه، هزینه، قوانین، اتحاد یا امتیازها سؤال کن.";
+        document.querySelectorAll(".mafiaQuestion.clicked").forEach(x=>x.classList.remove("clicked"));
+        btn.classList.add("clicked");
+        addMessage(q,"user");
+        const typing=addTyping();
+        setTimeout(()=>{
+            if(typing.isConnected)typing.remove();
+            addMessage(answer,"bot");
+            panel.classList.add("answerPulse");
+            setTimeout(()=>panel.classList.remove("answerPulse"),700);
+        },Math.min(1500,650+answer.length*7));
+    }
+    document.querySelectorAll(".mafiaQuestion").forEach(btn=>btn.addEventListener("click",()=>ask(btn)));
+});
+
 </script>
+
+
+<!-- =========================
+     MAFIA BOT
+========================= -->
+
+<button class="mafiaBotLauncher" id="mafiaBotLauncher" type="button" aria-label="باز کردن مافیا بات">
+    <span class="botMiniDot"></span><strong>مافیا بات</strong><span>ONLINE</span>
+</button>
+<section class="mafiaBotPanel" id="mafiaBotPanel" aria-label="مافیا بات">
+    <div class="mafiaBotHeader">
+        <div><div class="mafiaBotTitle">مافیا بات</div><div class="mafiaBotStatus"><i></i> آنلاین و آماده پاسخ</div></div>
+        <button class="mafiaBotClose" id="mafiaBotClose" type="button" aria-label="بستن">×</button>
+    </div>
+    <div class="mafiaBotWelcome">سلام! 👋 من <b>مافیا بات</b> هستم. سؤال موردنظرت را انتخاب کن تا درباره چالش امیر خوانده راهنمایی‌ات کنم.</div>
+    <div class="mafiaQuestions">
+        <button class="mafiaQuestion" type="button" data-question="چالش امیر خوانده چیه؟">🕵️ چالش چیه؟</button>
+        <button class="mafiaQuestion" type="button" data-question="جوایز چالش چیه؟">🏆 جوایز؟</button>
+        <button class="mafiaQuestion" type="button" data-question="جایزه نفر اول چیه؟">🥇 نفر اول؟</button>
+        <button class="mafiaQuestion" type="button" data-question="جایزه نفر دوم چیه؟">🥈 نفر دوم؟</button>
+        <button class="mafiaQuestion" type="button" data-question="جایزه نفر سوم چیه؟">🥉 نفر سوم؟</button>
+        <button class="mafiaQuestion" type="button" data-question="هزینه ورود چقدره؟">💰 هزینه؟</button>
+        <button class="mafiaQuestion" type="button" data-question="ظرفیت چقدره؟">👥 ظرفیت؟</button>
+        <button class="mafiaQuestion" type="button" data-question="چطور شرکت کنم؟">🎮 شرکت؟</button>
+        <button class="mafiaQuestion" type="button" data-question="ثبت نام چطوریه؟">📝 ثبت‌نام؟</button>
+        <button class="mafiaQuestion" type="button" data-question="قوانین چالش چیه؟">⚠️ قوانین؟</button>
+        <button class="mafiaQuestion" type="button" data-question="اتحاد مورد نیاز چیه؟">🤝 اتحاد؟</button>
+        <button class="mafiaQuestion" type="button" data-question="اسم اتحاد چیه؟">🏷️ اسم اتحاد؟</button>
+        <button class="mafiaQuestion" type="button" data-question="آیدی اتحاد چیه؟">🆔 آیدی اتحاد؟</button>
+        <button class="mafiaQuestion" type="button" data-question="جام اتحاد چقدره؟">🏆 جام اتحاد؟</button>
+        <button class="mafiaQuestion" type="button" data-question="امتیاز برد چقدره؟">⚡ برد؟</button>
+        <button class="mafiaQuestion" type="button" data-question="امتیاز مساوی چقدره؟">🤝 مساوی؟</button>
+        <button class="mafiaQuestion" type="button" data-question="امتیاز باخت چقدره؟">❌ باخت؟</button>
+        <button class="mafiaQuestion" type="button" data-question="چطور امتیاز بیشتری بگیرم؟">📈 امتیاز بیشتر؟</button>
+        <button class="mafiaQuestion" type="button" data-question="آیدی روبیکا چیه؟">📱 روبیکا؟</button>
+        <button class="mafiaQuestion" type="button" data-question="پشتیبانی کجاست؟">💬 پشتیبانی؟</button>
+        <button class="mafiaQuestion" type="button" data-question="روز مسابقه کیه؟">⏳ زمان مسابقه؟</button>
+        <button class="mafiaQuestion" type="button" data-question="چقدر تا پایان چالش مونده؟">⏱️ شمارش معکوس؟</button>
+        <button class="mafiaQuestion" type="button" data-question="چطور برنده بشم؟">🔥 چطور برنده شم؟</button>
+        <button class="mafiaQuestion" type="button" data-question="چت عمومی چیه؟">💬 چت عمومی؟</button>
+        <button class="mafiaQuestion" type="button" data-question="مافیا بات چیکار میکنه؟">🤖 بات چیکار می‌کنه؟</button>
+    </div>
+    <div class="mafiaConversation" id="mafiaConversation"><div class="mafiaMsg bot">برای شروع یکی از سؤال‌های بالا را انتخاب کن ✨</div></div>
+    <div class="mafiaBotFooter">پاسخ‌های مافیا بات درباره اطلاعات همین سایت هستند.</div>
+</section>
 
 </body>
 </html>
